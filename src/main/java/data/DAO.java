@@ -9,10 +9,10 @@ package data;
  *
  * @author Bitten
  */
-public class UserDAO {
+public class DAO {
     private DBConnector conn = null;
     
-    public UserDAO() {
+    public DAO() {
         conn = new DBConnector();
     }
     
