@@ -7,6 +7,7 @@ package data;
 
 import com.mysql.jdbc.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -34,5 +35,21 @@ public class DBConnector {
         }
         return conn;
     }
+    
+    // Just for testing the connection with the database
+    public void testConnection() throws Exception {
+        try {
+            String sql = "SELECT * FROM odetails";
+            ResultSet rs = getConnection().prepareStatement(sql).executeQuery();
+
+            while (rs.next()) {
+                System.out.println("id: " + rs.getString("order_i") + " top: " + rs.getString("Top_id") + " bottom: " + rs.getString("Bottom_id") + " qty: " + rs.getString("qty") + " total price: " + rs.getString("price"));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new Exception("Exception fanget og sendt videre..");
+        }
+    }
+    
     
 }
