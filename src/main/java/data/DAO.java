@@ -5,11 +5,29 @@
  */
 package data;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Bitten
  */
 public class DAO {
    
+    
+    public User getUser(String username) {
+        
+        
+        return null;
+    }
+    
+    public ArrayList<User> getUsers() {
+        return new ArrayList<User>();
+    }
+    
+    
+    
+    
+    
+    
     
 }
