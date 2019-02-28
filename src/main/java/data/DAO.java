@@ -134,5 +134,49 @@ public class DAO implements DAOInterface {
     public Odetails getOrderDetail(int orderid) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    @Override
+    public ArrayList<Bottom> getAllBottoms() {
+        
+        ResultSet rs;
+        ArrayList result = new ArrayList<>();
+        String query = "SELECT * FROM `Bottom`;"; 
+        
+        try {
+            rs = DBConnector.getConnection().prepareStatement(query).executeQuery();
+            
+            while(rs.next()) {
+                result.add(new Bottom(rs.getInt("id"), rs.getString("name"), rs.getDouble("price")));
+            }
+            
+        } catch (SQLException e) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        
+        return result;
+        
+    }
+    
+    @Override
+    public ArrayList<Top> getAllTops() {
+        
+        ResultSet rs;
+        ArrayList result = new ArrayList<>();
+        String query = "SELECT * FROM `Top`;"; 
+        
+        try {
+            rs = DBConnector.getConnection().prepareStatement(query).executeQuery();
+            
+            while(rs.next()) {
+                result.add(new Top(rs.getInt("id"), rs.getString("name"), rs.getDouble("price")));
+            }
+            
+        } catch (SQLException e) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        
+        return result;
+        
+    }
 
 }
