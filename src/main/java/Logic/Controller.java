@@ -1,9 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Logic;
+
+import data.DAO;
+import data.User;
+import java.util.ArrayList;
 
 /**
  *
@@ -11,4 +10,15 @@ package Logic;
  */
 public class Controller {
     
+    DAO data = new DAO();
+    
+    public ArrayList<User> getUsers() {
+        ArrayList<User> users = data.getUsers();
+        
+        for (User user : users) {
+            System.out.println(user.getUsername());
+        }
+        
+        return users;
+    }
 }
