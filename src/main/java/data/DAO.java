@@ -5,7 +5,11 @@
  */
 package data;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,7 +24,22 @@ public class DAO implements DAOInterface {
 
     @Override
     public ArrayList<User> getUsers() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        ArrayList<User> users = new ArrayList();
+        
+        try {
+            String sql = "SELECT * FROM `User`";
+            ResultSet rs = DBConnector.getConnection().prepareStatement(sql).executeQuery();
+            
+            while (rs.next()) {
+                User user = new User(rs.getString("username"), rs.getString("password"), rs.getString("email"), rs.getDouble("balance"));
+                users.add(user);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        return users;
     }
 
     @Override
