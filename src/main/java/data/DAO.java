@@ -21,36 +21,20 @@ public class DAO implements DAOInterface {
 
     @Override
     public User getUser(String username) {
-        String query = "SELECT * FROM User WHERE username = " + username + ";";
-
-        String user = "";
-        String password = "";
-        String email = "";
-        double balance = 0;
-
         User u = null;
-
-        ResultSet rs = null;
         try {
-            Connection con = DBConnector.getConnection();
-            Statement stmt = con.createStatement();
-            rs = stmt.executeQuery(query);
-
+            String query = "SELECT * FROM User WHERE username = " + username + ";";
+            ResultSet rs = DBConnector.getConnection().prepareStatement(query).executeQuery();
             while (rs.next()) {
-                user = rs.getString("username");
-                password = rs.getString("password");
-                email = rs.getString("email");
-                balance = rs.getDouble("balance");
-
-                u = new User(user, password, email, balance);
+                u = new User(rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("email"), 
+                        rs.getDouble("balance"));
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return u;
-
     }
 
     @Override
@@ -91,20 +75,38 @@ public class DAO implements DAOInterface {
     }
 
     @Override
-    public boolean addBalance(String username, double amount) {
-        String sql = "UPDATE `User` SET balance = (balance " + amount + ") WHERE username = '" + username + "'";    
+    public boolean addBalance(String username) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public String getTopIdName(int id) {
+        String query = "SELECT `name` FROM `Top` WHERE `Top`.`id` = " + id + ";"; 
+        ResultSet rs;
+        String res = null;
         try {
-            
-            ResultSet rs = DBConnector.getConnection().prepareStatement(sql).executeQuery();
-            
-            return true;
-            
-            
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+            rs = DBConnector.getConnection().prepareStatement(query).executeQuery();
+            res = rs.getString("name");
+        } catch (SQLException e) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, e);
         }
         
-        return false;
+        return res;
+    }
+    
+    @Override
+    public String getBottomIdName(int id) {
+        String query = "SELECT `name` FROM `Bottom` WHERE `Bottom`.`id` = " + id + ";"; 
+        ResultSet rs;
+        String res = null;
+        try {
+            rs = DBConnector.getConnection().prepareStatement(query).executeQuery();
+            res = rs.getString("name");
+        } catch (SQLException e) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        
+        return res;
     }
 
 }
