@@ -11,17 +11,26 @@ import java.util.ArrayList;
  *
  * @author Bitten
  */
-public class DAO {
-   
-    
+public class DAO implements DAOInterface {
+
+    @Override
     public User getUser(String username) {
-        
-        
-        return null;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
+    @Override
     public ArrayList<User> getUsers() {
-        return new ArrayList<User>();
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean insertUser(String username, String password, String email) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean addBalance(String username) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     
