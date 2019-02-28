@@ -23,7 +23,7 @@ public class DAO implements DAOInterface {
     public User getUser(String username) {
         User u = null;
         try {
-            String query = "SELECT * FROM User WHERE username = " + username + ";";
+            String query = "SELECT * FROM User WHERE username = '" + username + "';";
             ResultSet rs = DBConnector.getConnection().prepareStatement(query).executeQuery();
             while (rs.next()) {
                 u = new User(rs.getString("username"),
@@ -59,7 +59,7 @@ public class DAO implements DAOInterface {
 
     @Override
     public boolean insertUser(String username, String password, String email) {
-        String query = "INSERT INTO User VALUES ('" + username + "' , '" + password + "' , '" + "' , " + 0 + ");";
+        String query = "INSERT INTO User VALUES ('" + username + "' , '" + email + "' , '" + password + "' , " + 0 + ");";
         boolean succes = false;
         
         try {
