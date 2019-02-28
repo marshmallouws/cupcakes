@@ -28,7 +28,7 @@ public class DAO implements DAOInterface {
             while (rs.next()) {
                 u = new User(rs.getString("username"),
                         rs.getString("password"),
-                        rs.getString("email"), 
+                        rs.getString("email"),
                         rs.getDouble("balance"));
             }
         } catch (SQLException ex) {
@@ -39,13 +39,13 @@ public class DAO implements DAOInterface {
 
     @Override
     public ArrayList<User> getUsers() {
-        
+
         ArrayList<User> users = new ArrayList();
-        
+
         try {
             String sql = "SELECT * FROM `User`";
             ResultSet rs = DBConnector.getConnection().prepareStatement(sql).executeQuery();
-            
+
             while (rs.next()) {
                 User user = new User(rs.getString("username"), rs.getString("password"), rs.getString("email"), rs.getDouble("balance"));
                 users.add(user);
@@ -53,7 +53,7 @@ public class DAO implements DAOInterface {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        
+
         return users;
     }
 
@@ -61,13 +61,15 @@ public class DAO implements DAOInterface {
     public boolean insertUser(String username, String password, String email) {
         String query = "INSERT INTO User VALUES ('" + username + "' , '" + email + "' , '" + password + "' , " + 0 + ");";
         boolean succes = false;
-        
+
         try {
             Connection connection = DBConnector.getConnection();
             Statement stmt = connection.createStatement();
             int rs = stmt.executeUpdate(query);
-            if(rs == 1) succes = true;
-            
+            if (rs == 1) {
+                succes = true;
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -78,21 +80,23 @@ public class DAO implements DAOInterface {
     public boolean addBalance(String username, double amount) {
         String sql = "UPDATE User SET balance = (balance + " + amount + ") WHERE username = '" + username + "'";
         boolean succes = false;
-        
+
         try {
             Connection connection = DBConnector.getConnection();
             Statement stmt = connection.createStatement();
             int rs = stmt.executeUpdate(sql);
-            if(rs == 1) succes = true;
+            if (rs == 1) {
+                succes = true;
+            }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
         return succes;
     }
-    
+
     @Override
     public String getTopIdName(int id) {
-        String query = "SELECT `name` FROM `Top` WHERE `Top`.`id` = " + id + ";"; 
+        String query = "SELECT `name` FROM `Top` WHERE `Top`.`id` = " + id + ";";
         ResultSet rs;
         String res = null;
         try {
@@ -101,13 +105,13 @@ public class DAO implements DAOInterface {
         } catch (SQLException e) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, e);
         }
-        
+
         return res;
     }
-    
+
     @Override
     public String getBottomIdName(int id) {
-        String query = "SELECT `name` FROM `Bottom` WHERE `Bottom`.`id` = " + id + ";"; 
+        String query = "SELECT `name` FROM `Bottom` WHERE `Bottom`.`id` = " + id + ";";
         ResultSet rs;
         String res = null;
         try {
@@ -116,67 +120,100 @@ public class DAO implements DAOInterface {
         } catch (SQLException e) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, e);
         }
-        
+
         return res;
     }
 
     @Override
     public ArrayList<Order> getOrders(String username) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String query = "SELECT * FROM order WHERE username = '" + username + "';";
+        ArrayList<Order> ord = new ArrayList<>();
+
+        try {
+            ResultSet rs = DBConnector.getConnection().prepareStatement(query).executeQuery();
+
+            while (rs.next()) {
+                ord.add(new Order(rs.getInt("id"), rs.getString("username"), rs.getString("date")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ord;
     }
 
     @Override
     public ArrayList<Odetails> getOrderDetails(String username) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String query = "SELECT * FROM odetails "
+                + "JOIN order ON order_id = id "
+                + "JOIN Bottom ON Bottom_id = Bottom.id "
+                + "JOIN Top ON Top_id = Top.id "
+                + "WHERE username = '" + username + "';";
+        ArrayList<Odetails> od = new ArrayList<>();
+        try {
+            ResultSet rs = DBConnector.getConnection().prepareStatement(query).executeQuery();
+            
+            while (rs.next()) {
+                od.add(new Odetails(rs.getInt("id"), rs.getString("Top.name"), 
+                        rs.getString("Bottom.name"), rs.getDouble("price"), rs.getInt("qty")));
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return od;
     }
 
     @Override
     public Odetails getOrderDetail(int orderid) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
     public ArrayList<Bottom> getAllBottoms() {
-        
+
         ResultSet rs;
         ArrayList result = new ArrayList<>();
-        String query = "SELECT * FROM `Bottom`;"; 
-        
+        String query = "SELECT * FROM `Bottom`;";
+
         try {
             rs = DBConnector.getConnection().prepareStatement(query).executeQuery();
-            
-            while(rs.next()) {
+
+            while (rs.next()) {
                 result.add(new Bottom(rs.getInt("id"), rs.getString("name"), rs.getDouble("price")));
             }
-            
+
         } catch (SQLException e) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, e);
         }
-        
+
         return result;
-        
+
     }
-    
+
     @Override
     public ArrayList<Top> getAllTops() {
-        
+
         ResultSet rs;
         ArrayList result = new ArrayList<>();
-        String query = "SELECT * FROM `Top`;"; 
-        
+        String query = "SELECT * FROM `Top`;";
+
         try {
             rs = DBConnector.getConnection().prepareStatement(query).executeQuery();
-            
-            while(rs.next()) {
+
+            while (rs.next()) {
                 result.add(new Top(rs.getInt("id"), rs.getString("name"), rs.getDouble("price")));
             }
-            
+
         } catch (SQLException e) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, e);
         }
-        
+
         return result;
-        
+
+    }
+
+    public static void main(String[] args) {
+
     }
 
 }
