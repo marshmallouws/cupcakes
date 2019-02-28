@@ -5,68 +5,61 @@
  */
 package presentation;
 
-import Logic.UserController;
+import Logic.ShopController;
+import data.Bottom;
 import data.User;
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import data.DAO;
+import data.Top;
+import java.util.ArrayList;
 
 /**
  *
- * @author vl48
+ * @author Martin
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "Shop", urlPatterns = {"/Shop"})
+public class Shop extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    private ShopController sc = new ShopController();
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-         String username = request.getParameter("username");
-         String password = request.getParameter("password");
-         RequestDispatcher view;
-         if(username == null || username.isEmpty()
-                 || password == null || password.isEmpty())
-         {
-             view = request.getRequestDispatcher("./");
-             view.forward(request, response);    
-             return;
-         }
-         
-        try { 
-        UserController uc = new UserController();
-        boolean validLogin = uc.login(username, password);
-        if(validLogin){
-            User user = uc.getUser(username);
-            HttpSession session = request.getSession();
-            session.setAttribute("user", user);
-            response.sendRedirect("store.html");  
-            return;
-        }
-        }catch(Exception e){
-            response.sendRedirect("./"); 
-            return;
-        }
-        response.sendRedirect("./"); 
-        return;
-        /*
+        HttpSession session = request.getSession();
+        User loggedUser = (User)session.getAttribute("user");
+        ArrayList<Top> tops = sc.getAllTops();
+        ArrayList<Bottom> bottoms = sc.getAllBottoms();
+        
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            
-        } */
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet Shop</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Currently logged in as: " + loggedUser.getUsername() + "</h1>");
+            out.println("<h1>Current balance: " + loggedUser.getBalance() + "</h1>");
+            out.println("<br><br>");
+            for (Top t : tops) {
+                out.println("<p> Top:" + t.getName() + " - " + t.getPrice() + "</p>");
+            }
+            for (Bottom b : bottoms) {
+                out.println("<p> Bottom: " + b.getName() + " - " + b.getPrice() +  "</p>");
+            }
+//            out.println("<h1 style=\"font-family:verdana;\"> Currently logged in as: " + loggedUser + "</h1>");
+//            out.println("<h1 style=\"font-family:courier;\">Current balance: " + loggedUser.getBalance() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

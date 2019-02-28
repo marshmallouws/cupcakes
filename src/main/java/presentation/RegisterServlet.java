@@ -20,8 +20,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author vl48
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "RegisterServlet", urlPatterns = {"/register"})
+public class RegisterServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,31 +36,26 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         
          String username = request.getParameter("username");
+         String email = request.getParameter("email");
          String password = request.getParameter("password");
          RequestDispatcher view;
          if(username == null || username.isEmpty()
-                 || password == null || password.isEmpty())
+                 || password == null || password.isEmpty()
+                 || email == null || email.isEmpty())
          {
-             view = request.getRequestDispatcher("./");
+             view = request.getRequestDispatcher("register.html");
              view.forward(request, response);    
              return;
          }
          
-        try { 
         UserController uc = new UserController();
-        boolean validLogin = uc.login(username, password);
-        if(validLogin){
-            User user = uc.getUser(username);
-            HttpSession session = request.getSession();
-            session.setAttribute("user", user);
-            response.sendRedirect("store.html");  
+        boolean validRegister = uc.newUser(username, password, email);
+        if(validRegister){
+            response.sendRedirect("./");   
             return;
         }
-        }catch(Exception e){
-            response.sendRedirect("./"); 
-            return;
-        }
-        response.sendRedirect("./"); 
+        
+        response.sendRedirect("register.html");
         return;
         /*
         response.setContentType("text/html;charset=UTF-8");

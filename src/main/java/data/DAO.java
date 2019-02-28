@@ -23,8 +23,7 @@ public class DAO implements DAOInterface {
     public User getUser(String username) {
         User u = null;
         try {
-            // Tilføjet '' før og efter username
-            String query = "SELECT * FROM User WHERE username = '" + username + "'";
+            String query = "SELECT * FROM User WHERE username = '" + username + "';";
             ResultSet rs = DBConnector.getConnection().prepareStatement(query).executeQuery();
             while (rs.next()) {
                 u = new User(rs.getString("username"),
@@ -60,7 +59,7 @@ public class DAO implements DAOInterface {
 
     @Override
     public boolean insertUser(String username, String password, String email) {
-        String query = "INSERT INTO User VALUES ('" + username + "' , '" + password + "' , '" + "' , " + 0 + ");";
+        String query = "INSERT INTO User VALUES ('" + username + "' , '" + email + "' , '" + password + "' , " + 0 + ");";
         boolean succes = false;
         
         try {
@@ -134,6 +133,50 @@ public class DAO implements DAOInterface {
     @Override
     public Odetails getOrderDetail(int orderid) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public ArrayList<Bottom> getAllBottoms() {
+        
+        ResultSet rs;
+        ArrayList result = new ArrayList<>();
+        String query = "SELECT * FROM `Bottom`;"; 
+        
+        try {
+            rs = DBConnector.getConnection().prepareStatement(query).executeQuery();
+            
+            while(rs.next()) {
+                result.add(new Bottom(rs.getInt("id"), rs.getString("name"), rs.getDouble("price")));
+            }
+            
+        } catch (SQLException e) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        
+        return result;
+        
+    }
+    
+    @Override
+    public ArrayList<Top> getAllTops() {
+        
+        ResultSet rs;
+        ArrayList result = new ArrayList<>();
+        String query = "SELECT * FROM `Top`;"; 
+        
+        try {
+            rs = DBConnector.getConnection().prepareStatement(query).executeQuery();
+            
+            while(rs.next()) {
+                result.add(new Top(rs.getInt("id"), rs.getString("name"), rs.getDouble("price")));
+            }
+            
+        } catch (SQLException e) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        
+        return result;
+        
     }
 
 }

@@ -23,4 +23,6 @@ public interface DAOInterface {
     public Odetails getOrderDetail(int orderid);
     public String getBottomIdName(int id);
     public String getTopIdName(int id);
+    public ArrayList<Bottom> getAllBottoms();
+    public ArrayList<Top> getAllTops();
 }

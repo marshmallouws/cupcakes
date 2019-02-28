@@ -30,4 +30,8 @@ public class UserController {
         User user = data.getUser(username);
         return user.getPassword().equals(password);
     }
+    
+    public boolean newUser(String username, String password, String email){
+        return data.insertUser(username, password, email);
+    }
 }
