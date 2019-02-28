@@ -5,9 +5,9 @@
  */
 package presentation;
 
+import Logic.UserController;
 import data.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,16 +36,17 @@ public class LoginServlet extends HttpServlet {
         
          String username = request.getParameter("username");
          String password = request.getParameter("password");
-            
-            /* check user logic here */
-        User user = null;
-        boolean validLogin = false;
+         UserController uc = new UserController();
+            /* check user logic from controller here */
+        boolean validLogin = uc.login(username, password);
         if(validLogin){
+            User user = uc.getUser(username);
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
             response.sendRedirect("/store");
         }
         
+        return;
         /*
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
