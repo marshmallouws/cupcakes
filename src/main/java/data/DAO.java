@@ -23,7 +23,8 @@ public class DAO implements DAOInterface {
     public User getUser(String username) {
         User u = null;
         try {
-            String query = "SELECT * FROM User WHERE username = " + username + ";";
+            // Tilføjet '' før og efter username
+            String query = "SELECT * FROM User WHERE username = '" + username + "'";
             ResultSet rs = DBConnector.getConnection().prepareStatement(query).executeQuery();
             while (rs.next()) {
                 u = new User(rs.getString("username"),

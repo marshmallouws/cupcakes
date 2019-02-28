@@ -37,6 +37,8 @@ public class UsersServlet extends HttpServlet {
 
         UserController con = new UserController();
         ArrayList<User> users = con.getUsers();
+        
+        User adminUser = con.getUser("admin");
 
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
@@ -50,8 +52,8 @@ public class UsersServlet extends HttpServlet {
 
             // Printer alle Users
             for (User user : users) {
-                out.println("Username: " + user.getUsername());
-                out.println("Balance: " + user.getBalance());
+                out.println("<p>Username: " + user.getUsername() + "</p>");
+                out.println("<p>Balance: " + user.getBalance() + "</p>");
             }
 
             // Tilføjer 100 til balance
@@ -65,7 +67,9 @@ public class UsersServlet extends HttpServlet {
                 out.println("<p>Username: " + user.getUsername() + "</p>");
                 out.println("<p>Balance: " + user.getBalance() + "</p>");
             }
-
+            
+            out.println("<p>Single user: " + adminUser.getUsername() + "</p>");
+            
             out.println("</body>");
             out.println("</html>");
         }
