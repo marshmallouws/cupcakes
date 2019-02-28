@@ -34,36 +34,38 @@ public class UsersServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         UserController con = new UserController();
-        
         ArrayList<User> users = con.getUsers();
-        
+
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet UsersServlet</title>");            
+            out.println("<title>Servlet UsersServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            
+
+            // Printer alle Users
             for (User user : users) {
                 out.println("Username: " + user.getUsername());
                 out.println("Balance: " + user.getBalance());
             }
-            
-            con.addBalance("admin", 100.0);
-            
+
+            // Tilføjer 100 til balance
+            out.println("Added amount to balance: " + con.addBalance("admin", 100.0));
+
+            // Henter alle Users igen
             users = con.getUsers();
-            
+
+            // Printer alle Users inkl. ny balance
             for (User user : users) {
                 out.println("<p>Username: " + user.getUsername() + "</p>");
                 out.println("<p>Balance: " + user.getBalance() + "</p>");
             }
-            
-            
+
             out.println("</body>");
             out.println("</html>");
         }

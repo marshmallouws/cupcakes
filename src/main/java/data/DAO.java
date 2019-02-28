@@ -76,7 +76,7 @@ public class DAO implements DAOInterface {
 
     @Override
     public boolean addBalance(String username, double amount) {
-        String sql = "UPDATE `User` SET balance = (balance + " + amount + ") WHERE `username` = '" + username + "'";
+        String sql = "UPDATE User SET balance = (balance + " + amount + ") WHERE username = '" + username + "'";
         boolean succes = false;
         
         try {
