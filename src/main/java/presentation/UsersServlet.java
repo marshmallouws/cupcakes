@@ -5,7 +5,7 @@
  */
 package presentation;
 
-import Logic.Controller;
+import Logic.UserController;
 import data.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -35,7 +35,7 @@ public class UsersServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        Controller con = new Controller();
+        UserController con = new UserController();
         
         ArrayList<User> users = con.getUsers();
         
@@ -51,6 +51,16 @@ public class UsersServlet extends HttpServlet {
             
             for (User user : users) {
                 out.println("Username: " + user.getUsername());
+                out.println("Balance: " + user.getBalance());
+            }
+            
+            con.addBalance("admin", 100.0);
+            
+            users = con.getUsers();
+            
+            for (User user : users) {
+                out.println("<p>Username: " + user.getUsername() + "</p>");
+                out.println("<p>Balance: " + user.getBalance() + "</p>");
             }
             
             

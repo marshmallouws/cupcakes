@@ -8,17 +8,17 @@ import java.util.ArrayList;
  *
  * @author caspe
  */
-public class Controller {
+public class UserController {
     
     DAO data = new DAO();
     
     public ArrayList<User> getUsers() {
         ArrayList<User> users = data.getUsers();
         
-        for (User user : users) {
-            System.out.println(user.getUsername());
-        }
-        
         return users;
+    }
+    
+    public void addBalance(String username, double amount) {
+        data.addBalance(username, amount);
     }
 }

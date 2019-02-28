@@ -91,8 +91,20 @@ public class DAO implements DAOInterface {
     }
 
     @Override
-    public boolean addBalance(String username) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean addBalance(String username, double amount) {
+        String sql = "UPDATE `User` SET balance = (balance " + amount + ") WHERE username = '" + username + "'";    
+        try {
+            
+            ResultSet rs = DBConnector.getConnection().prepareStatement(sql).executeQuery();
+            
+            return true;
+            
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        return false;
     }
 
 }

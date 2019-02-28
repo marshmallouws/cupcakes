@@ -17,6 +17,6 @@ public interface DAOInterface {
     public User getUser(String username);
     public ArrayList<User> getUsers();
     public boolean insertUser(String username, String password, String email);
-    public boolean addBalance(String username);
+    public boolean addBalance(String username, double amount);
     
 }
