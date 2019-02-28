@@ -109,4 +109,19 @@ public class DAO implements DAOInterface {
         return res;
     }
 
+    @Override
+    public ArrayList<Order> getOrders(String username) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<Odetails> getOrderDetails(String username) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Odetails getOrderDetail(int orderid) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

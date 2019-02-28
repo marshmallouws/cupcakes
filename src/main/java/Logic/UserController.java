@@ -19,6 +19,6 @@ public class UserController {
     }
     
     public void addBalance(String username, double amount) {
-        data.addBalance(username, amount);
+        //data.addBalance(username, amount);
     }
 }
