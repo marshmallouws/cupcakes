@@ -15,9 +15,9 @@ import java.sql.SQLException;
  */
 public class DBConnector {
     private static final String DRIVER = "com.mysql.jdbc.Driver";
-    private static final String URL = "jdbc:mysql://localhost:3306/dbname";
-    private static final String USER = "root";
-    private static final String PASSWORD = "password";
+    private static final String URL = "jdbc:mysql://138.68.92.25:3306/cupcakes";
+    private static final String USER = "testuser";
+    private static final String PASSWORD = "password123";
     private static Connection conn = null;
 
     public static Connection getConnection() {
