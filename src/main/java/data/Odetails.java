@@ -2,7 +2,7 @@ package data;
 
 /**
  *
- * @author caspe
+ * @author vl48
  */
 public class Odetails {
     private int order_id = -1;

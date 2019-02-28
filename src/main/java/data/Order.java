@@ -2,7 +2,7 @@ package data;
 
 /**
  *
- * @author caspe
+ * @author vl48
  */
 public class Order {
     private int id;
