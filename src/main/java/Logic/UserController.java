@@ -18,8 +18,8 @@ public class UserController {
         return users;
     }
     
-    public void addBalance(String username, double amount) {
-        //data.addBalance(username, amount);
+    public boolean addBalance(String username, double amount) {
+        return data.addBalance(username, amount);
     }
     
     public User getUser(String username){
