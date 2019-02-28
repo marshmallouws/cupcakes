@@ -5,6 +5,8 @@
  */
 package data;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Bitten
@@ -15,5 +17,21 @@ public class DAO {
     public DAO() {
         conn = new DBConnector();
     }
+    
+    public User getUser(String username) {
+        
+        
+        return null;
+    }
+    
+    public ArrayList<User> getUsers() {
+        return new ArrayList<User>();
+    }
+    
+    
+    
+    
+    
+    
     
 }
