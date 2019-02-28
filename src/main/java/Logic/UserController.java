@@ -21,4 +21,13 @@ public class UserController {
     public void addBalance(String username, double amount) {
         //data.addBalance(username, amount);
     }
+    
+    public User getUser(String username){
+        return data.getUser(username);
+    }
+    
+    public boolean login(String username, String password){
+        User user = data.getUser(username);
+        return user.getPassword().equals(password);
+    }
 }
