@@ -21,36 +21,20 @@ public class DAO implements DAOInterface {
 
     @Override
     public User getUser(String username) {
-        String query = "SELECT * FROM User WHERE username = " + username + ";";
-
-        String user = "";
-        String password = "";
-        String email = "";
-        double balance = 0;
-
         User u = null;
-
-        ResultSet rs = null;
         try {
-            Connection con = DBConnector.getConnection();
-            Statement stmt = con.createStatement();
-            rs = stmt.executeQuery(query);
-
+            String query = "SELECT * FROM User WHERE username = " + username + ";";
+            ResultSet rs = DBConnector.getConnection().prepareStatement(query).executeQuery();
             while (rs.next()) {
-                user = rs.getString("username");
-                password = rs.getString("password");
-                email = rs.getString("email");
-                balance = rs.getDouble("balance");
-
-                u = new User(user, password, email, balance);
+                u = new User(rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("email"), 
+                        rs.getDouble("balance"));
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return u;
-
     }
 
     @Override
