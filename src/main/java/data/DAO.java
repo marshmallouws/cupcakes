@@ -94,5 +94,35 @@ public class DAO implements DAOInterface {
     public boolean addBalance(String username) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    @Override
+    public String getTopIdName(int id) {
+        String query = "SELECT `name` FROM `Top` WHERE `Top`.`id` = " + id + ";"; 
+        ResultSet rs;
+        String res = null;
+        try {
+            rs = DBConnector.getConnection().prepareStatement(query).executeQuery();
+            res = rs.getString("name");
+        } catch (SQLException e) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        
+        return res;
+    }
+    
+    @Override
+    public String getBottomIdName(int id) {
+        String query = "SELECT `name` FROM `Bottom` WHERE `Bottom`.`id` = " + id + ";"; 
+        ResultSet rs;
+        String res = null;
+        try {
+            rs = DBConnector.getConnection().prepareStatement(query).executeQuery();
+            res = rs.getString("name");
+        } catch (SQLException e) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        
+        return res;
+    }
 
 }
