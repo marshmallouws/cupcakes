@@ -19,11 +19,8 @@ public class Odetails {
     }
     
     public Odetails(int order, String top, String bottom, double price, int qty){
+        this(top, bottom, price, qty);
         this.order_id = order;
-        this.top_name = top;
-        this.bottom_name = bottom;
-        this.price = price;
-        this.qty = qty;
     }
 
     public int getOrderID() {

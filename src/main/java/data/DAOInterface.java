@@ -20,7 +20,7 @@ public interface DAOInterface {
     public boolean addBalance(String username, double amount);
     public ArrayList<Order> getOrders(String username);
     public ArrayList<Odetails> getOrderDetails(String username);
-    public Odetails getOrderDetail(int orderid);
+    public ArrayList<Odetails> getOrderDetail(int orderid);
     public String getBottomIdName(int id);
     public String getTopIdName(int id);
     public ArrayList<Bottom> getAllBottoms();

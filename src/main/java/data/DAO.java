@@ -39,7 +39,7 @@ public class DAO implements DAOInterface {
 
     @Override
     public ArrayList<User> getUsers() {
-
+        
         ArrayList<User> users = new ArrayList();
 
         try {
@@ -101,6 +101,7 @@ public class DAO implements DAOInterface {
         String res = null;
         try {
             rs = DBConnector.getConnection().prepareStatement(query).executeQuery();
+            rs.next();
             res = rs.getString("name");
         } catch (SQLException e) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, e);
@@ -116,6 +117,7 @@ public class DAO implements DAOInterface {
         String res = null;
         try {
             rs = DBConnector.getConnection().prepareStatement(query).executeQuery();
+            rs.next();
             res = rs.getString("name");
         } catch (SQLException e) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, e);
@@ -126,14 +128,15 @@ public class DAO implements DAOInterface {
 
     @Override
     public ArrayList<Order> getOrders(String username) {
-        String query = "SELECT * FROM order WHERE username = '" + username + "';";
+        String query = "SELECT * FROM `order` WHERE User_username = '" + username + "';";
         ArrayList<Order> ord = new ArrayList<>();
 
         try {
             ResultSet rs = DBConnector.getConnection().prepareStatement(query).executeQuery();
-
             while (rs.next()) {
-                ord.add(new Order(rs.getInt("id"), rs.getString("username"), rs.getString("date")));
+                ord.add(new Order(rs.getInt("id"), 
+                        rs.getString("User_username"), 
+                        rs.getString("date")));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -144,17 +147,20 @@ public class DAO implements DAOInterface {
     @Override
     public ArrayList<Odetails> getOrderDetails(String username) {
         String query = "SELECT * FROM odetails "
-                + "JOIN order ON order_id = id "
+                + "JOIN `order` ON order_id = id "
                 + "JOIN Bottom ON Bottom_id = Bottom.id "
                 + "JOIN Top ON Top_id = Top.id "
-                + "WHERE username = '" + username + "';";
+                + "WHERE User_username = '" + username + "';";
         ArrayList<Odetails> od = new ArrayList<>();
         try {
             ResultSet rs = DBConnector.getConnection().prepareStatement(query).executeQuery();
             
             while (rs.next()) {
-                od.add(new Odetails(rs.getInt("id"), rs.getString("Top.name"), 
-                        rs.getString("Bottom.name"), rs.getDouble("price"), rs.getInt("qty")));
+                od.add(new Odetails(rs.getInt("id"), 
+                        rs.getString("Top.name"), 
+                        rs.getString("Bottom.name"), 
+                        rs.getDouble("price"), 
+                        rs.getInt("qty")));
                 
             }
         } catch (SQLException ex) {
@@ -164,8 +170,27 @@ public class DAO implements DAOInterface {
     }
 
     @Override
-    public Odetails getOrderDetail(int orderid) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<Odetails> getOrderDetail(int orderid) {
+        String query = "SELECT * FROM odetails "
+                + "JOIN Top ON Top.id = Top_id "
+                + "JOIN Bottom ON Bottom.id = Bottom_id "
+                + "WHERE order_id = " + orderid + ";";
+        
+        ArrayList<Odetails> od = new ArrayList<>();
+        try {
+            ResultSet rs = DBConnector.getConnection().prepareStatement(query).executeQuery();
+            
+            while (rs.next()) {
+                od.add(new Odetails(rs.getInt("order_id"), 
+                        rs.getString("Top.name"), 
+                        rs.getString("Bottom.name"), 
+                        rs.getDouble("price"), 
+                        rs.getInt("qty")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return od;
     }
 
     @Override
@@ -209,11 +234,13 @@ public class DAO implements DAOInterface {
         }
 
         return result;
-
     }
-
+    
     public static void main(String[] args) {
-
+        DAO d = new DAO();
+        
+        System.out.println(d.insertUser("Annika", "Annika", "Annika@hotmail.dk"));
+        
     }
 
 }

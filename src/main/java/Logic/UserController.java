@@ -28,7 +28,7 @@ public class UserController {
     
     public boolean login(String username, String password){
         User user = data.getUser(username);
-        return user.getPassword().equals(password);
+        return password.equals(user.getPassword());
     }
     
     public boolean newUser(String username, String password, String email){
