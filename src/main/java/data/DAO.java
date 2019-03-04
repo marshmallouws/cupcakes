@@ -39,7 +39,7 @@ public class DAO implements DAOInterface {
 
     @Override
     public ArrayList<User> getUsers() {
-        
+
         ArrayList<User> users = new ArrayList();
 
         try {
@@ -134,8 +134,8 @@ public class DAO implements DAOInterface {
         try {
             ResultSet rs = DBConnector.getConnection().prepareStatement(query).executeQuery();
             while (rs.next()) {
-                ord.add(new Order(rs.getInt("id"), 
-                        rs.getString("User_username"), 
+                ord.add(new Order(rs.getInt("id"),
+                        rs.getString("User_username"),
                         rs.getString("date")));
             }
         } catch (SQLException ex) {
@@ -154,14 +154,14 @@ public class DAO implements DAOInterface {
         ArrayList<Odetails> od = new ArrayList<>();
         try {
             ResultSet rs = DBConnector.getConnection().prepareStatement(query).executeQuery();
-            
+
             while (rs.next()) {
-                od.add(new Odetails(rs.getInt("id"), 
-                        rs.getString("Top.name"), 
-                        rs.getString("Bottom.name"), 
-                        rs.getDouble("price"), 
+                od.add(new Odetails(rs.getInt("id"),
+                        rs.getString("Top.name"),
+                        rs.getString("Bottom.name"),
+                        rs.getDouble("price"),
                         rs.getInt("qty")));
-                
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -175,16 +175,16 @@ public class DAO implements DAOInterface {
                 + "JOIN Top ON Top.id = Top_id "
                 + "JOIN Bottom ON Bottom.id = Bottom_id "
                 + "WHERE order_id = " + orderid + ";";
-        
+
         ArrayList<Odetails> od = new ArrayList<>();
         try {
             ResultSet rs = DBConnector.getConnection().prepareStatement(query).executeQuery();
-            
+
             while (rs.next()) {
-                od.add(new Odetails(rs.getInt("order_id"), 
-                        rs.getString("Top.name"), 
-                        rs.getString("Bottom.name"), 
-                        rs.getDouble("price"), 
+                od.add(new Odetails(rs.getInt("order_id"),
+                        rs.getString("Top.name"),
+                        rs.getString("Bottom.name"),
+                        rs.getDouble("price"),
                         rs.getInt("qty")));
             }
         } catch (SQLException ex) {
@@ -235,12 +235,4 @@ public class DAO implements DAOInterface {
 
         return result;
     }
-    
-    public static void main(String[] args) {
-        DAO d = new DAO();
-        
-        System.out.println(d.insertUser("Annika", "Annika", "Annika@hotmail.dk"));
-        
-    }
-
 }
