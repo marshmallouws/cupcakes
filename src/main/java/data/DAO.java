@@ -235,4 +235,9 @@ public class DAO implements DAOInterface {
 
         return result;
     }
+
+    @Override
+    public boolean placeOrder(Order order) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

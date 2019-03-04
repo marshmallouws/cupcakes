@@ -42,6 +42,4 @@ public class Odetails {
     public String getBottom_name() {
         return bottom_name;
     }
-    
-     
 }

@@ -17,18 +17,18 @@ body,html {
 }
 
 .login-background {
-  padding-top:50px;
-  width:100%;
-  height:100%;
-  background-image: url("../images/login-bg.jpg");
-  background-color: #FFF;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+    padding-top:50px;
+    width:100%;
+    height:100%;
+    background-image: url("../images/login-bg.jpg");
+    background-color: #FFF;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .login-image-wrapper {
-   margin-bottom:10px; 
+    margin-bottom:10px; 
 }
 
 .login-wrapper {
@@ -62,17 +62,17 @@ input.inputSplit {
 
 .login-wrapper input::-webkit-input-placeholder
 {
-  color: white;
-  opacity: 0.7;  
+    color: white;
+    opacity: 0.7;  
 }
 .login-wrapper input::-moz-placeholder
 {
-  color: white;
-  opacity: 0.7;  
+    color: white;
+    opacity: 0.7;  
 }
 .login-wrapper input:-ms-input-placeholder{
-  color: white;
-  opacity: 0.7;  
+    color: white;
+    opacity: 0.7;  
 }
 
 .login-wrapper .btn {
@@ -99,5 +99,39 @@ input.inputSplit {
 
 .login-wrapper .register_link a:hover {
     font-weight: bold;
-    
+
+}
+
+body {margin:0;}
+
+.navbar {
+  font-family: "Lucida Console";
+  overflow: hidden;
+  text-align: center;
+  padding: 0 0;
+  background-color: #333;
+  position: fixed;
+  top: 0;
+  
+  width: 100%;
+}
+
+.navbar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 20px 16px;
+  text-decoration: none;
+  font-size: 22px;
+}
+
+.navbar #prev-orders:hover {
+  background: #ddd;
+  color: black;
+}
+
+.navbar #saldo {
+    float: right;
+    padding-right: 100px; 
 }
