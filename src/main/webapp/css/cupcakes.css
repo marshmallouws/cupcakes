@@ -11,6 +11,11 @@ body,html {
     text-align: center;
 }
 
+.errorMsg {
+    font-size:22px;
+    color:white;
+}
+
 .login-background {
   padding-top:50px;
   width:100%;

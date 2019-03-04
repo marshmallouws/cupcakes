@@ -41,9 +41,7 @@ public class LoginServlet extends HttpServlet {
          if(username == null || username.isEmpty()
                  || password == null || password.isEmpty())
          {
-             view = request.getRequestDispatcher("./");
-             view.forward(request, response);    
-             return;
+             response.sendRedirect("./");
          }
          
         try { 
@@ -57,8 +55,10 @@ public class LoginServlet extends HttpServlet {
             return;
         }
         }catch(Exception e){
-            response.sendRedirect("./"); 
-            return;
+             request.setAttribute("errorMsg", "Forkert brugernavn/password");
+             view = request.getRequestDispatcher("./");
+             view.forward(request, response);    
+             return;
         }
         response.sendRedirect("./"); 
         return;

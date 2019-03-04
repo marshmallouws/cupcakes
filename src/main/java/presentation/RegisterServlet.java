@@ -6,7 +6,6 @@
 package presentation;
 
 import Logic.UserController;
-import data.User;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,7 +13,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -43,15 +41,16 @@ public class RegisterServlet extends HttpServlet {
                  || password == null || password.isEmpty()
                  || email == null || email.isEmpty())
          {
-             view = request.getRequestDispatcher("register.html");
-             view.forward(request, response);    
+             response.sendRedirect("register.html");
              return;
          }
          
         UserController uc = new UserController();
         boolean validRegister = uc.newUser(username, password, email);
         if(validRegister){
-            response.sendRedirect("./");   
+             request.setAttribute("errorMsg", "Bruger '"+username+"' er nu oprettet");
+             view = request.getRequestDispatcher("./");
+             view.forward(request, response);      
             return;
         }
         
