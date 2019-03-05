@@ -51,7 +51,7 @@ public class LoginServlet extends HttpServlet {
             User user = uc.getUser(username);
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
-            response.sendRedirect("store.html");  
+            response.sendRedirect("store.jsp");  
             return;
         }
         }catch(Exception e){
