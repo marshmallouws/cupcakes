@@ -42,13 +42,14 @@ public class AddBalanceServlet extends HttpServlet {
         ArrayList<User> users = u.getUsers();
         
         for(User us: users) {
-            if (us.getUsername() == username) {
-                u.addBalance(username, amount);
-                response.sendRedirect("./AdminAddBalance.jsp");
+            if (!us.getUsername().equals(username)) {
+                
+                request.getRequestDispatcher("./AdminAddBalance.jsp").forward(request, response);
             }
         }
+        u.addBalance(username, amount);
+        response.sendRedirect("./AdminAddBalance.jsp");
         
-        request.getRequestDispatcher("./AdminAddBalance.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
