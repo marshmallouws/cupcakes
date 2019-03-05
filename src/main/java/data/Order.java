@@ -40,4 +40,8 @@ public class Order {
     public ArrayList<Odetails> getDetails() {
         return details;
     }
+    
+    public int getUserID() {
+        return userID;
+    }
 }
