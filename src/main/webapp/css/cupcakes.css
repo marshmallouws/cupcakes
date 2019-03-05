@@ -1,7 +1,7 @@
 body,html {
     font-family: "Times New Roman", Times, serif;
     width:100%;
-    height:100%;
+    min-height:100%;
     margin:0;
 }
 
@@ -102,36 +102,185 @@ input.inputSplit {
 
 }
 
-body {margin:0;}
+.main {
+    margin:auto;
+    margin-top:20px;
+    max-width:60rem;
+}
 
 .navbar {
-  font-family: "Lucida Console";
   overflow: hidden;
   text-align: center;
   padding: 0 0;
-  background-color: #333;
+  background-color: #FFF;
   position: fixed;
   top: 0;
-  
   width: 100%;
+     height:80px;
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
 }
 
-.navbar a {
-  float: left;
-  display: block;
-  color: #f2f2f2;
+.nav-wrapper {
+    max-width:60rem;
+    margin:auto;
+       padding:10px;
+}
+
+.clearfix {
+    clear:both;
+}
+
+.navigation-logo {
+    width:310px;
+    float:left;
+}
+
+.navigation {
+    width:50%;
+    float:right;
+    margin-top:30px;
+}
+
+.navbar .link {
+  color: black;
   text-align: center;
   padding: 20px 16px;
   text-decoration: none;
-  font-size: 22px;
+  font-size: 16px;
+  cursor:pointer;
 }
 
-.navbar #prev-orders:hover {
+.navbar a.link:hover {
   background: #ddd;
-  color: black;
 }
 
-.navbar #saldo {
-    float: right;
-    padding-right: 100px; 
+.header {
+    width:100%;
+    height: 120px;
+    margin-top: 80px;
+    background-image: url("../images/login-bg.jpg");
+    background-color: #FFF;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+   font-size:50px;
+   text-shadow: 2px 2px #000;
+   color:#FFF;
+   text-align: center;
+   padding-top:50px;
+}
+
+.add-to-cart-wrapper{
+    margin-bottom:40px;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.cart-wrapper {
+    float:left;
+    min-width:60%;
+}
+
+.shop-checkout {
+    float:right;
+    min-width:35%;
+    margin-left:5%;
+}
+
+.shop-title {
+    font-size:20px;
+    text-transform:uppercase;
+}
+
+.shop-table {
+    width:100%;
+}
+
+.shop-table thead {
+    color: #0a0a0a;
+    border: 1px solid #f1f1f1;
+}
+
+.shop-table thead th {
+    font-weight: 700;
+    padding: 9px 12px;
+    line-height: 1.5em;
+    text-align:left;
+}
+
+.shop-table td select {
+    border:none;
+    width:100%;
+}
+
+.shop-table td input[type=number] {
+    width:100%;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button {  
+   opacity: 1;
+}
+
+.shop-table td.product-remove {
+    width:20px;
+}
+
+.shop-table a.remove {
+    color: #ab322e!important;
+    font-weight: 900 !important;
+    text-decoration:none;
+    display: block;
+    font-size: 1.5em;
+    height: 1em;
+    width: 1em;
+    text-align: center;
+    line-height: 1;
+    border-radius: 100%;
+    border: 0;
+}
+input.btn {
+    padding: 10px;
+    border: none;
+    color: #FFF;
+    font-weight: bold;
+    min-width: 70%;
+    background-color: #a11fbf;
+    border-radius: 10px;
+    cursor:pointer;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1) !important;
+}
+input.btn:hover {
+    background-color: #b572c0;
+}
+
+input.checkoutbtn {
+    height:50px;
+    font-size:20px;
+}
+
+.shop-table td {
+    border-top: 1px solid rgba(0,0,0,.1);
+    padding: 9px 12px;
+    vertical-align: middle;
+    line-height: 1.5em;
+}
+
+
+
+.footer {
+    background-color:#1d1a1a;
+    margin-top:100px;
+    height:150px;
+    width:100%;
+}
+
+.footer-content {
+    text-align:center;
+    margin:auto;
+    position:relative;
+    top:50%;
+    color:#FFF;
 }

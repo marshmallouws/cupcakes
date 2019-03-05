@@ -1,0 +1,110 @@
+<%-- 
+    Document   : store
+    Created on : 05-Mar-2019, 12:00:18
+    Author     : vl48
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Cupcakes - Store</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="./css/cupcakes.css">
+    </head>
+    <body>
+        <div class="navbar">
+            <div class="nav-wrapper">
+            <div class="navigation-logo">
+                <img src="./images/cupcake_logo.png" width="50">
+                <img src ="./images/cupcake_logo_txt.png" width="250"> 
+            </div>
+            <div class="navigation">
+                <a href="#" class="link">Køb Cupcakes</a>
+                <a href="#" class="link">Tidligere Ordre</a>
+                <span class="link">Balance: 000 DKK</span>
+            </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="header">Dine gladeste cupcakes</div>
+        <div class="main">
+            <div class="add-to-cart-wrapper">
+            <h2 class="shop-title">Tilføj Cupcakes Til Indkøbskurv:</h2>
+            <table class="shop-table">
+                <thead>
+                    <tr>
+                        <th>Bund</th>
+                        <th>Top</th>
+                        <th>Antal</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <select><option value="0">Vælg Bund</option></select>
+                        </td>
+                        <td>
+                            <select><option value="0">Vælg Top</option></select>
+                        </td>
+                        <td>
+                            <input type="number" value="1" min="1" max="100">
+                        </td>
+                        <td>
+                            <input type="submit" class="btn" value="Læg i Indkøbskurv">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+            <div class="cart-wrapper">
+            <h1 class="shop-title">Indkøbskurv</h1>
+            <table class="shop-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Produkt</th>
+                        <th>Pris</th>
+                        <th>Antal</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="product-remove">
+                            <a href="#" class="remove">×</a>
+                        </td>
+                        <td>
+                            Chokolade med nut
+                        </td>
+                        <td>
+                            10,00 DKK
+                        </td>
+                        <td>
+                            2
+                        </td>
+                        <td>
+                            20,00 DKK
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+             <div class="shop-checkout">
+                 <h3 class="shop-title">Pris i alt</h3>
+                 <h4>Subtotal: 000,00 DKK</h4>
+                 <h4>Levering: gratis afhentning</h4>
+                 <h4>Total: 000,00 DKK</h4>
+                 <input type="submit" class="btn checkoutbtn" value="Videre til kassen">
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        
+        <div class="footer">
+            <footer class="footer-content">
+                Happy Cupcakes webshop school project   
+            </footer>
+        </div>
+    </body>
+</html>
