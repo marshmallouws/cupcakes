@@ -40,5 +40,9 @@ public class User {
         return balance;
     }
     
+    public int getUserID() {
+        return id;
+    }
+    
     
 }
