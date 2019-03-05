@@ -40,7 +40,7 @@ public class MyOrdersServlet extends HttpServlet {
         if (user == null) {
             request.getRequestDispatcher("index.jsp").forward(request, response);
         } else {
-            List<Order> orders = data.getOrders(user.getUsername());
+            List<Order> orders = data.getOrders(user.getUserID);
 
             session.setAttribute("orders", orders);
             response.sendRedirect("./orders.jsp");
