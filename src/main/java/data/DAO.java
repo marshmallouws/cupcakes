@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package data;
 
 import java.sql.Connection;
@@ -10,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -150,6 +146,22 @@ public class DAO implements DAOInterface {
         return res;
     }
 
+    // Get All Orders
+    public List<Order> getOrders() {
+        List<Order> orders = new ArrayList();
+        String sql = "SELECT * FROM `order`";
+        
+        try {
+            ResultSet rs = DBConnector.getConnection().prepareStatement(sql).executeQuery();
+            while (rs.next()) {
+                orders.add(new Order(rs.getInt("id"), rs.getInt("User_id"), rs.getString("date")));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        return orders;
+    }
     @Override
     public ArrayList<Order> getOrders(int id) {
         String query = "SELECT * FROM `order` WHERE User_id = '" + id + "';";
