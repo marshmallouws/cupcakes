@@ -29,7 +29,7 @@
                 
                 <tr>
                     <td><% out.print(order.getID()); %></td>
-                    <td><% out.print(order.getUserId); %></td>
+                    <td><% out.print(order.getUserID()); %></td>
                     <td><% out.print(order.getDate()); %></td>
                 </tr>
                 
