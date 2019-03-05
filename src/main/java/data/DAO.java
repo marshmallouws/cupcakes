@@ -79,8 +79,7 @@ public class DAO implements DAOInterface {
 
     @Override
     public boolean insertUser(String username, String password, String email) {
-        String query = "INSERT INTO User (username, email, password, balance) VALUES "
-                + " ('" + username + "' , '" + email + "' , '" + password + "' , " + 0 + ");";
+        String query = "INSERT INTO User (username, email, password, balance) VALUES ('" + username + "' , '" + email + "' , '" + password + "' , " + 0 + ");";
         boolean succes = false;
 
         try {
