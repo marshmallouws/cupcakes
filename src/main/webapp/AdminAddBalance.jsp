@@ -16,9 +16,11 @@
     </head>
     <body>
         <h1>Tilføj til en brugers saldo</h1>
-        <form method="POST">
+        <form action="./AddBalanceServlet" method="POST">
             <input name="username" type="text" placeholder="Brugernavn" required>
-            <input type="submit" class="btn" value="Søg på bruger">
+            <input name="DKK" type="number" placeholder="DKK" required>
+            <input type="submit" class="btn" value="Tilføj til saldo">
         </form>
+        
     </body>
 </html>
