@@ -4,6 +4,9 @@
     Author     : caspe
 --%>
 
+<%@page import="data.User"%>
+<% User user = (User) request.getSession().getAttribute("user"); %>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,5 +20,12 @@
             <a href="./store.html" id="logo-pic"><img src ="./images/cupcake_logo_txt.png" width="340" height="66"> </a>
             <a id="logo"><img src="./images/cupcake_logo.png" width="75" height="75"> </a>
             <a href="./MyOrdersServlet" id="prev-orders">TIDLIGERE BESTILLINGER</a>
-            <a id="saldo">SALDO:</a>
+            <a id="saldo">SALDO: <% out.print(user.getBalance()); %></a>
+            
+            <% if (user != null) { %>
+            
+            <form method="POST" action="./LogoutServlet">
+                <button type="submit" class="btn btn-danger">Logout</button>
+            </form>
+            <% } %>
         </div>
