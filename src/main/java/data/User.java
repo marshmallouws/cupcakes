@@ -5,6 +5,8 @@
  */
 package data;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author caspe
@@ -15,6 +17,7 @@ public class User {
     private String password;
     private String email;
     private double balance;
+    private ArrayList<Order> orders;
     
     public User(int id, String username, String password, String email, double balance) {
         this.id = id;
@@ -44,5 +47,12 @@ public class User {
         return id;
     }
     
+    public ArrayList<Order> getOrders() {
+        return orders;
+    }
+    
+    public void setOrders(Order order) {
+        orders.add(order);
+    }
     
 }
