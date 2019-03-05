@@ -15,11 +15,12 @@ import java.util.ArrayList;
 public interface DAOInterface {
     
     public User getUser(String username);
+    public User getUser(int id);
     public ArrayList<User> getUsers();
     public boolean insertUser(String username, String password, String email);
     public boolean addBalance(String username, double amount);
-    public ArrayList<Order> getOrders(String username);
-    public ArrayList<Odetails> getOrderDetails(String username);
+    public ArrayList<Order> getOrders(int id);
+    public ArrayList<Odetails> getOrderDetails(int id);
     public ArrayList<Odetails> getOrderDetail(int orderid);
     public String getBottomIdName(int id);
     public String getTopIdName(int id);
