@@ -8,28 +8,30 @@ import java.util.ArrayList;
  */
 public class Order {
     private int id;
-    private String username;
+    private int userID;
     private String date;
     private ArrayList<Odetails> details;
 
-    public Order(String username, String date) {
-        this.username = username;
+    public Order(int userID, String date) {
+        //this.username = username
+        this.userID = userID;
         this.date = date;
         details = new ArrayList<>();
     }
     
-    public Order(int id, String username, String date) {
-        this(username, date);
+    public Order(int id, int userID, String date) {
+        this(userID, date);
         this.id = id;
     }
 
+    
     public int getID() {
         return id;
     }
 
-    public String getUsername() {
-        return username;
-    }
+//    public String getUsername() {
+//        return user.getUsername();
+//    }
 
     public String getDate() {
         return date;
