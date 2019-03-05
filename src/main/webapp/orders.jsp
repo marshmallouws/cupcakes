@@ -4,20 +4,18 @@
     Author     : caspe
 --%>
 
+<%@page import="data.User"%>
 <%@page import="java.util.List"%>
 <%@page import="data.Order"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% List<Order> orders = ((List<Order>) request.getSession().getAttribute("orders")); %>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Tidligere Ordre</title>
-    </head>
-    <body>
-        <h1>Mine Ordre</h1>
+<% 
+    User user = (User) request.getSession().getAttribute("user");
+    List<Order> orders = ((List<Order>) request.getSession().getAttribute("orders"));
+%>
+<jsp:include page="./header.jsp"></jsp:include>
+        <h1> <% out.print(user.getUsername()); %>'s Ordre</h1>
         
-        <table>
+        <table class="table">
             <thead>
             <th>id</th>
             <th>Username</th>
