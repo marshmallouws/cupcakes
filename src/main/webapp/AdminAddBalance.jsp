@@ -22,5 +22,9 @@
             <input type="submit" class="btn" value="Tilføj til saldo">
         </form>
         
+        <%
+            if()
+        %>
+        
     </body>
 </html>

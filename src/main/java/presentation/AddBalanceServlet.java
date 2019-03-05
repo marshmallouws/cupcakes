@@ -48,7 +48,10 @@ public class AddBalanceServlet extends HttpServlet {
             }
         }
         u.addBalance(username, amount);
-        response.sendRedirect("./AdminAddBalance.jsp");
+        
+        request.getRequestDispatcher("./AdminAddBalance.jsp").forward(request, response);
+        
+        //response.sendRedirect("./AdminAddBalance.jsp");
         
     }
 
