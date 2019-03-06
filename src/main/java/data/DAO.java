@@ -287,9 +287,7 @@ public class DAO implements DAOInterface {
             PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             stmt.setInt(1, order.getUserID());
 
-            //Statement stmt = connection.createStatement();
             stmt.execute();
-
             ResultSet rs = stmt.getGeneratedKeys();
             if (rs.next()) {
                 id = rs.getInt(1);
@@ -303,10 +301,11 @@ public class DAO implements DAOInterface {
 
     @Override
     public boolean placeOrder(Order order) {
-        //String queryOrder = "INSERT INTO order (date, User_id) VALUES (?, ?);";
         String queryDet = "INSERT INTO odetails (order_id, Top_id, Bottom_id, price, qty) "
                 + "VALUES (?, ?, ?, ?, ?);";
         int id = insertOrder(order);
+        //TODO: Make query to change user's balance.
+        double price = 0;
 
         Connection conn = DBConnector.getConnection();
         ArrayList<Odetails> details = order.getDetails();
@@ -324,15 +323,17 @@ public class DAO implements DAOInterface {
                 pso.setInt(5, o.getQty()); //qty
                 System.out.println(o);
                 pso.addBatch();
-                
-                
+                price += o.getPrice()*o.getQty();
             }
             pso.executeBatch();
-            
-            
+
         } catch (SQLException ex) {
+            price = 0;
             try {
                 conn.rollback();
+                String query = "DELETE FROM `order` WHERE id = " + id + ";";
+                Statement stmt = conn.createStatement();
+                stmt.executeUpdate(query);
             } catch (SQLException ex1) {
                 ex1.printStackTrace();
             }
@@ -343,7 +344,30 @@ public class DAO implements DAOInterface {
                 Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
+        if(price == 0) {
+            return false;
+        }
+        
+        deductBalance(price, order.getUserID());
         return true;
+    }
+    
+    private boolean deductBalance(double amount, int userid) {
+        String sql = "UPDATE User SET balance = (balance - " + amount + ") WHERE id = '" + userid + "'";
+        boolean succes = false;
+
+        try {
+            Connection connection = DBConnector.getConnection();
+            Statement stmt = connection.createStatement();
+            int rs = stmt.executeUpdate(sql);
+            if (rs == 1) {
+                succes = true;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return succes;
     }
 
     public Bottom getBottom(int id) {
