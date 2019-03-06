@@ -1,6 +1,7 @@
 package data;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -34,7 +35,7 @@ public class DAO implements DAOInterface {
         }
         return u;
     }
-    
+
     @Override
     public User getUser(int id) {
         User u = null;
@@ -66,9 +67,9 @@ public class DAO implements DAOInterface {
 
             while (rs.next()) {
                 User user = new User(rs.getInt("id"),
-                        rs.getString("username"), 
-                        rs.getString("password"), 
-                        rs.getString("email"), 
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("email"),
                         rs.getDouble("balance"),
                         Role.valueOf(rs.getString("role").toUpperCase()));
                 users.add(user);
@@ -153,7 +154,7 @@ public class DAO implements DAOInterface {
     public List<Order> getOrders() {
         List<Order> orders = new ArrayList();
         String sql = "SELECT * FROM `order`";
-        
+
         try {
             ResultSet rs = DBConnector.getConnection().prepareStatement(sql).executeQuery();
             while (rs.next()) {
@@ -162,9 +163,10 @@ public class DAO implements DAOInterface {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        
+
         return orders;
     }
+
     @Override
     public ArrayList<Order> getOrders(int id) {
         String query = "SELECT * FROM `order` WHERE User_id = '" + id + "';";
@@ -276,15 +278,78 @@ public class DAO implements DAOInterface {
         return result;
     }
 
+    private int insertOrder(Order order) {
+        String query = "INSERT INTO `order` (date, User_id) VALUES (now(), ?);";
+        int id = 0;
+
+        try {
+            Connection connection = DBConnector.getConnection();
+            PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            stmt.setInt(1, order.getUserID());
+
+            //Statement stmt = connection.createStatement();
+            stmt.execute();
+
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return id;
+    }
+
     @Override
     public boolean placeOrder(Order order) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //String queryOrder = "INSERT INTO order (date, User_id) VALUES (?, ?);";
+        String queryDet = "INSERT INTO odetails (order_id, Top_id, Bottom_id, price, qty) "
+                + "VALUES (?, ?, ?, ?, ?);";
+        int id = insertOrder(order);
+
+        Connection conn = DBConnector.getConnection();
+        ArrayList<Odetails> details = order.getDetails();
+
+        try {
+            conn.setAutoCommit(false);
+            PreparedStatement pso = conn.prepareStatement(queryDet);
+
+            for (Odetails o : details) {
+
+                pso.setInt(1, id); //orderid
+                pso.setInt(2, o.getTop_id()); //top
+                pso.setInt(3, o.getBottom_id()); //bottom
+                pso.setDouble(4, o.getPrice()); //price
+                pso.setInt(5, o.getQty()); //qty
+                System.out.println(o);
+                pso.addBatch();
+                
+                
+            }
+            pso.executeBatch();
+            
+            
+        } catch (SQLException ex) {
+            try {
+                conn.rollback();
+            } catch (SQLException ex1) {
+                ex1.printStackTrace();
+            }
+        } finally {
+            try {
+                conn.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return true;
     }
- 
-    public Bottom getBottom(int id){
+
+    public Bottom getBottom(int id) {
         ResultSet rs;
         Bottom bottom = null;
-        String query = "SELECT * FROM `Bottom` WHERE id="+id+";";
+        String query = "SELECT * FROM `Bottom` WHERE id=" + id + ";";
         try {
             rs = DBConnector.getConnection().prepareStatement(query).executeQuery();
             while (rs.next()) {
@@ -296,11 +361,11 @@ public class DAO implements DAOInterface {
 
         return bottom;
     }
-    
-    public Top getTop(int id){
+
+    public Top getTop(int id) {
         ResultSet rs;
         Top top = null;
-        String query = "SELECT * FROM `Top` WHERE id="+id+";";
+        String query = "SELECT * FROM `Top` WHERE id=" + id + ";";
         try {
             rs = DBConnector.getConnection().prepareStatement(query).executeQuery();
             while (rs.next()) {
@@ -312,9 +377,9 @@ public class DAO implements DAOInterface {
 
         return top;
     }
-    
-    public Odetails createOdetailsForCart(int bottom, int top, int qty){
+
+    public Odetails createOdetailsForCart(int bottom, int top, int qty) {
         double price = (getTop(top).getPrice() + getBottom(bottom).getPrice());
-        return new Odetails(top,bottom,price,qty);
+        return new Odetails(top, bottom, price, qty);
     }
 }
