@@ -13,6 +13,7 @@
     List<Order> orders = ((List<Order>) request.getSession().getAttribute("orders"));
 %>
 <jsp:include page="./header.jsp"></jsp:include>
+<div class="cc_main">
         <h1> <% out.print(user.getUsername()); %>'s Ordre</h1>
         
         <div class="card">
@@ -43,5 +44,7 @@
                 <% } %>
             </tbody>
         </table>
+            
+</div>
     </body>
 </html>

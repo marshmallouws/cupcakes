@@ -7,12 +7,11 @@
 <%@page import="java.util.List"%>
 <%@page import="data.Order"%>
 <% List<Order> orders = (List<Order>) request.getAttribute("orders"); %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <jsp:include page="./header.jsp"></jsp:include>
-    <h1>Hello World!</h1>
 
-    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="SÃ¸g efter brugernavn">
+    <div class="cc_main">
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Søg efter brugernavn">
     <button onclick="sortTableUsername()">Sort by username</button>
     <button onclick="sortTableDate()">Sort by date</button>
     <table class="table" id="myTable">
@@ -34,6 +33,8 @@
     <% }%>
 </tbody>
 </table>
+
+    </div>
 
 <script>
     function myFunction() {
@@ -80,7 +81,7 @@
       x = rows[i].getElementsByTagName("TD")[1];
       y = rows[i + 1].getElementsByTagName("TD")[1];
       // Check if the two rows should switch place:
-      if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) { // pt i omvendt rÃ¦kkefÃ¸lge
+      if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) { // pt i omvendt rækkefølge
         // If so, mark as a switch and break the loop:
         shouldSwitch = true;
         break;
