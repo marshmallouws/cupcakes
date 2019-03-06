@@ -27,7 +27,7 @@ public class DAO implements DAOInterface {
                         rs.getString("password"),
                         rs.getString("email"),
                         rs.getDouble("balance"),
-                        Role.valueOf(rs.getString("role")));
+                        Role.valueOf(rs.getString("role").toUpperCase()));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -47,7 +47,7 @@ public class DAO implements DAOInterface {
                         rs.getString("password"),
                         rs.getString("email"),
                         rs.getDouble("balance"),
-                        Role.valueOf(rs.getString("role")));
+                        Role.valueOf(rs.getString("role").toUpperCase()));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
