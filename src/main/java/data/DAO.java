@@ -194,8 +194,8 @@ public class DAO implements DAOInterface {
 
             while (rs.next()) {
                 od.add(new Odetails(rs.getInt("id"),
-                        rs.getString("Top.name"),
-                        rs.getString("Bottom.name"),
+                        rs.getInt("Top.name"),
+                        rs.getInt("Bottom.name"),
                         rs.getDouble("price"),
                         rs.getInt("qty")));
 
@@ -219,8 +219,8 @@ public class DAO implements DAOInterface {
 
             while (rs.next()) {
                 od.add(new Odetails(rs.getInt("order_id"),
-                        rs.getString("Top.name"),
-                        rs.getString("Bottom.name"),
+                        rs.getInt("Top.id"),
+                        rs.getInt("Bottom.id"),
                         rs.getDouble("price"),
                         rs.getInt("qty")));
             }
@@ -276,5 +276,42 @@ public class DAO implements DAOInterface {
     @Override
     public boolean placeOrder(Order order) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+ 
+    public Bottom getBottom(int id){
+        ResultSet rs;
+        Bottom bottom = null;
+        String query = "SELECT * FROM `Bottom` WHERE id="+id+";";
+        try {
+            rs = DBConnector.getConnection().prepareStatement(query).executeQuery();
+            while (rs.next()) {
+                bottom = new Bottom(rs.getInt("id"), rs.getString("name"), rs.getDouble("price"));
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+        return bottom;
+    }
+    
+    public Top getTop(int id){
+        ResultSet rs;
+        Top top = null;
+        String query = "SELECT * FROM `Top` WHERE id="+id+";";
+        try {
+            rs = DBConnector.getConnection().prepareStatement(query).executeQuery();
+            while (rs.next()) {
+                top = new Top(rs.getInt("id"), rs.getString("name"), rs.getDouble("price"));
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+        return top;
+    }
+    
+    public Odetails createOdetailsForCart(int bottom, int top, int qty){
+        double price = (getTop(top).getPrice() + getBottom(bottom).getPrice());
+        return new Odetails(top,bottom,price,qty);
     }
 }
