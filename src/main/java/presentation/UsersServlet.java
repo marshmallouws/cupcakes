@@ -6,15 +6,19 @@
 package presentation;
 
 import Logic.UserController;
+import data.DAO;
+import data.Role;
 import data.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -34,44 +38,19 @@ public class UsersServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        UserController con = new UserController();
-        ArrayList<User> users = con.getUsers();
         
-        User adminUser = con.getUser("admin");
-
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet UsersServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-
-            // Printer alle Users
-            for (User user : users) {
-                out.println("<p>Username: " + user.getUsername() + "</p>");
-                out.println("<p>Balance: " + user.getBalance() + "</p>");
-            }
-
-            // Tilføjer 100 til balance
-            out.println("Added amount to balance: " + con.addBalance("admin", 100.0));
-
-            // Henter alle Users igen
-            users = con.getUsers();
-
-            // Printer alle Users inkl. ny balance
-            for (User user : users) {
-                out.println("<p>Username: " + user.getUsername() + "</p>");
-                out.println("<p>Balance: " + user.getBalance() + "</p>");
-            }
+        HttpSession session = request.getSession();
+        
+        User user = (User) session.getAttribute("user");
+        
+        if (user == null || !Role.ADMIN.equals(user.getRole())) {
+            response.sendRedirect("./index.jsp");
+        } else {
+            DAO data = new DAO();
+            List<User> users = data.getUsers();
             
-            out.println("<p>Single user: " + adminUser.getUsername() + "</p>");
-            
-            out.println("</body>");
-            out.println("</html>");
+            request.setAttribute("users", users);
+            request.getRequestDispatcher("./userslist.jsp").forward(request, response);
         }
     }
 

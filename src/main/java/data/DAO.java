@@ -26,7 +26,8 @@ public class DAO implements DAOInterface {
                         rs.getString("username"),
                         rs.getString("password"),
                         rs.getString("email"),
-                        rs.getDouble("balance"));
+                        rs.getDouble("balance"),
+                        Role.valueOf(rs.getString("role").toUpperCase()));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -45,7 +46,8 @@ public class DAO implements DAOInterface {
                         rs.getString("username"),
                         rs.getString("password"),
                         rs.getString("email"),
-                        rs.getDouble("balance"));
+                        rs.getDouble("balance"),
+                        Role.valueOf(rs.getString("role").toUpperCase()));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -67,7 +69,8 @@ public class DAO implements DAOInterface {
                         rs.getString("username"), 
                         rs.getString("password"), 
                         rs.getString("email"), 
-                        rs.getDouble("balance"));
+                        rs.getDouble("balance"),
+                        Role.valueOf(rs.getString("role").toUpperCase()));
                 users.add(user);
             }
         } catch (SQLException ex) {
@@ -79,7 +82,7 @@ public class DAO implements DAOInterface {
 
     @Override
     public boolean insertUser(String username, String password, String email) {
-        String query = "INSERT INTO User VALUES ('" + username + "' , '" + email + "' , '" + password + "' , " + 0 + ");";
+        String query = "INSERT INTO User (username, email, password, balance) VALUES ('" + username + "' , '" + email + "' , '" + password + "' , " + 0 + ");";
         boolean succes = false;
 
         try {

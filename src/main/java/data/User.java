@@ -17,7 +17,18 @@ public class User {
     private String password;
     private String email;
     private double balance;
+    private Role role;
     private ArrayList<Order> orders;
+
+    // With Role
+    public User(int id, String username, String password, String email, double balance, Role role) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.balance = balance;
+        this.role = role;
+    }
     
     public User(int id, String username, String password, String email, double balance) {
         this.id = id;
@@ -45,6 +56,10 @@ public class User {
     
     public int getUserID() {
         return id;
+    }
+
+    public Role getRole() {
+        return role;
     }
     
     public ArrayList<Order> getOrders() {

@@ -8,7 +8,6 @@ package presentation;
 import Logic.UserController;
 import data.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -40,15 +39,26 @@ public class AddBalanceServlet extends HttpServlet {
         String username = request.getParameter("username");
         double amount = Double.parseDouble(request.getParameter("DKK"));
         ArrayList<User> users = u.getUsers();
+        String errMsg = "";
         
         for(User us: users) {
-            if (!us.getUsername().equals(username)) {
-                
-                request.getRequestDispatcher("./AdminAddBalance.jsp").forward(request, response);
+            if (us.getUsername().equals(username)) {
+                if(amount < 0) {
+                    errMsg = "Beløbet der bliver indsat skal være større end 0";
+                } else if (u.addBalance(username, amount)) {
+                    errMsg = username + "'s saldo er nu opdateret";
+                }
             }
         }
-        u.addBalance(username, amount);
-        response.sendRedirect("./AdminAddBalance.jsp");
+        
+        if(errMsg.isEmpty()) {
+            errMsg = username + " findes ikke i databasen";
+        }
+        
+        request.setAttribute("errMsg", errMsg);
+        request.getRequestDispatcher("./AdminAddBalance.jsp").forward(request, response);
+        
+        //response.sendRedirect("./AdminAddBalance.jsp");
         
     }
 
