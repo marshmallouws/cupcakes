@@ -14,7 +14,7 @@
     </head>
     <body>
         <div class="login-background">
-        <div class="login-wrapper center-wrapper">
+        <div class="login-wrapper cc_center-wrapper">
             <a href="./">
             <div class="login-image-wrapper">
                 <img src="./images/cupcake_logo.png" width="100"><br>
