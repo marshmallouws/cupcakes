@@ -10,7 +10,7 @@
 
 <jsp:include page="./header.jsp"></jsp:include>
 
-    <div class="cc_nav_margin">
+    <div class="cc_nav_margin cc_main">
     <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Søg efter brugernavn">
     <button onclick="sortTableUsername()">Sort by username</button>
     <button onclick="sortTableDate()">Sort by date</button>

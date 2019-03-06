@@ -4,6 +4,7 @@
     Author     : caspe
 --%>
 
+<%@page import="data.Role"%>
 <%@page import="data.User"%>
 <% User user = (User) request.getSession().getAttribute("user"); %>
 
@@ -27,6 +28,7 @@
             <div class="cc_navigation">
                 <a href="./store.jsp" class="cc_link">Køb Cupcakes</a>
                 <a href="./MyOrdersServlet" class="cc_link">Tidligere Ordre</a>
+                
                 <% if(user != null) { %>
                 <a href="./LogoutServlet" class="cc_link">Log ud</a>
                 <span class="cc_link">Balance: <%= user.getBalance() %> DKK</span>
