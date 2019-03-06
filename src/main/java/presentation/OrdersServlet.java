@@ -2,6 +2,8 @@ package presentation;
 
 import data.DAO;
 import data.Order;
+import data.Role;
+import data.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -32,13 +34,22 @@ public class OrdersServlet extends HttpServlet {
             throws ServletException, IOException {
         
         HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
         
-        DAO data = new DAO();
-        List<Order> orders = data.getOrders();
-        
-        request.setAttribute("orders", orders);
-        
-        request.getRequestDispatcher("./orderslist.jsp").forward(request, response);
+        if (user == null) {
+            response.sendRedirect("./index.jsp");
+        } 
+        else if (user.getRole().equals(Role.ADMIN)) {
+            DAO data = new DAO();
+            List<Order> orders = data.getOrders();
+
+            request.setAttribute("orders", orders);
+
+            request.getRequestDispatcher("./orderslist.jsp").forward(request, response);
+        } 
+        else {
+            response.sendRedirect("./MyOrdersServlet");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
