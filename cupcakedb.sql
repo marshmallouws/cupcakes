@@ -56,6 +56,7 @@ CREATE TABLE IF NOT EXISTS `cupcakes`.`User` (
   `email` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
   `balance` DOUBLE NOT NULL,
+  `role` ENUM('admin', 'customer') DEFAULT 'customer',
   PRIMARY KEY (`id`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC),
   UNIQUE INDEX `username_UNIQUE` (`username` ASC))

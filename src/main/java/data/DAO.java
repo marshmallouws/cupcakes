@@ -26,7 +26,8 @@ public class DAO implements DAOInterface {
                         rs.getString("username"),
                         rs.getString("password"),
                         rs.getString("email"),
-                        rs.getDouble("balance"));
+                        rs.getDouble("balance"),
+                        Role.valueOf(rs.getString("role")));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -45,7 +46,8 @@ public class DAO implements DAOInterface {
                         rs.getString("username"),
                         rs.getString("password"),
                         rs.getString("email"),
-                        rs.getDouble("balance"));
+                        rs.getDouble("balance"),
+                        Role.valueOf(rs.getString("role")));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -67,7 +69,8 @@ public class DAO implements DAOInterface {
                         rs.getString("username"), 
                         rs.getString("password"), 
                         rs.getString("email"), 
-                        rs.getDouble("balance"));
+                        rs.getDouble("balance"),
+                        Role.valueOf(rs.getString("role")));
                 users.add(user);
             }
         } catch (SQLException ex) {
