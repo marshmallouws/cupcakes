@@ -70,7 +70,7 @@ public class DAO implements DAOInterface {
                         rs.getString("password"), 
                         rs.getString("email"), 
                         rs.getDouble("balance"),
-                        Role.valueOf(rs.getString("role")));
+                        Role.valueOf(rs.getString("role").toUpperCase()));
                 users.add(user);
             }
         } catch (SQLException ex) {
