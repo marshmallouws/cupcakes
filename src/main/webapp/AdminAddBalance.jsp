@@ -6,6 +6,8 @@
 <%@page import="data.User"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<% String username = request.getParameter("username"); %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,7 +20,7 @@
 
         <h1>Tilføj til en brugers saldo</h1>
         <form action="./AddBalanceServlet" method="POST">
-            <input name="username" type="text" placeholder="Brugernavn" required>
+            <input name="username" type="text" value="<%= username %>" required>
             <input name="DKK" type="number" placeholder="DKK" required> <br><br>
             <input type="submit" class="btn" value="Tilføj til saldo">
         </form>

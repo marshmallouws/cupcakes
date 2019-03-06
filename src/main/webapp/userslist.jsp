@@ -25,7 +25,7 @@
 
     <tr>
         <td><%= u.getUserID() %></td>
-        <td><%= u.getUsername() %></td>
+        <td><a href="./AdminAddBalance.jsp?username=<%= u.getUsername() %>"> <%= u.getUsername() %></a></td>
         <td><%= u.getPassword() %></td>
         <td><%= u.getEmail() %></td>
         <td><%= u.getBalance() %></td>
