@@ -6,13 +6,13 @@ body,html {
     margin:0;
 }
 
-.center-wrapper {
+.cc_center-wrapper {
     margin:auto;
     width:50%;
     text-align: center;
 }
 
-.errorMsg {
+.cc_errorMsg {
     font-size:22px;
     color:white;
 }
@@ -103,13 +103,13 @@ input.inputSplit {
 
 }
 
-.main {
+.cc_main {
     margin:auto;
     margin-top:20px;
     max-width:60rem;
 }
 
-.navbar {
+.cc_navbar {
   overflow: hidden;
   text-align: center;
   padding: 0 0;
@@ -122,7 +122,7 @@ input.inputSplit {
    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
 }
 
-.nav-wrapper {
+.cc_nav-wrapper {
     max-width:60rem;
     margin:auto;
        padding:10px;
@@ -132,18 +132,18 @@ input.inputSplit {
     clear:both;
 }
 
-.navigation-logo {
+.cc_navigation-logo {
     width:310px;
     float:left;
 }
 
-.navigation {
+.cc_navigation {
     min-width:50%;
     float:right;
     margin-top:30px;
 }
 
-.navbar .link {
+.cc_navbar .cc_link {
   color: black;
   text-align: center;
   padding: 20px 16px;
@@ -152,13 +152,13 @@ input.inputSplit {
   cursor:pointer;
 }
 
-.navbar a.link:hover {
+.cc_navbar a.cc_link:hover {
   background: #ddd;
 }
 
-.header {
+.cc_header {
     width:100%;
-    height: 120px;
+    height: 160px;
     margin-top: 80px;
     background-image: url("../images/login-bg.jpg");
     background-color: #FFF;
@@ -174,49 +174,49 @@ input.inputSplit {
    padding-top:50px;
 }
 
-.add-to-cart-wrapper{
+.cc_add-to-cart-wrapper{
     margin-bottom:40px;
     border-bottom: 1px solid #f1f1f1;
 }
 
-.cart-wrapper {
+.cc_cart-wrapper {
     float:left;
     min-width:60%;
 }
 
-.shop-checkout {
+.cc_shop-checkout {
     float:right;
     min-width:35%;
     margin-left:5%;
 }
 
-.shop-title {
+.cc_shop-title {
     font-size:20px;
     text-transform:uppercase;
 }
 
-.shop-table {
+.cc_shop-table {
     width:100%;
 }
 
-.shop-table thead {
+.cc_shop-table thead {
     color: #0a0a0a;
-    border: 1px solid #f1f1f1;
+    /* border: 1px solid #f1f1f1; */
 }
 
-.shop-table thead th {
+.cc_shop-table thead th {
     font-weight: 700;
     padding: 9px 12px;
     line-height: 1.5em;
     text-align:left;
 }
 
-.shop-table td select {
+.cc_shop-table td select {
     border:none;
     width:100%;
 }
 
-.shop-table td input[type=number] {
+.cc_shop-table td input[type=number] {
     width:100%;
 }
 
@@ -225,11 +225,12 @@ input[type=number]::-webkit-outer-spin-button {
    opacity: 1;
 }
 
-.shop-table td.product-remove {
+.cc_shop-table td.cc_product-remove {
     width:20px;
 }
 
-.shop-table a.remove {
+.cc_shop-table a.cc_remove {
+    margin-bottom:5px;
     color: #ab322e!important;
     font-weight: 900 !important;
     text-decoration:none;
@@ -242,7 +243,7 @@ input[type=number]::-webkit-outer-spin-button {
     border-radius: 100%;
     border: 0;
 }
-input.btn {
+input.cc_btn {
     padding: 10px;
     border: none;
     color: #FFF;
@@ -253,16 +254,16 @@ input.btn {
     cursor:pointer;
     border-bottom: 2px solid rgba(0, 0, 0, 0.1) !important;
 }
-input.btn:hover {
+input.cc_btn:hover {
     background-color: #b572c0;
 }
 
-input.checkoutbtn {
+input.cc_checkoutbtn {
     height:50px;
     font-size:20px;
 }
 
-.shop-table td {
+.cc_shop-table td {
     border-top: 1px solid rgba(0,0,0,.1);
     padding: 9px 12px;
     vertical-align: middle;
@@ -271,17 +272,21 @@ input.checkoutbtn {
 
 
 
-.footer {
+.cc_footer {
     background-color:#1d1a1a;
     margin-top:100px;
     height:150px;
     width:100%;
 }
 
-.footer-content {
+.cc_footer-content {
     text-align:center;
     margin:auto;
     position:relative;
     top:50%;
     color:#FFF;
+}
+
+.cc_shop-checkout h4 {
+    font-size:16px;
 }

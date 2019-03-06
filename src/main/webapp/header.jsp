@@ -16,27 +16,22 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     </head>
     <body>
-        <nav class="navbar navbar-expand-sm bg-light">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="./store.html"><img src ="./images/cupcake_logo_txt.png" width="340" height="66"></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="logo"><img src="./images/cupcake_logo.png" width="50"></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./MyOrdersServlet">TIDLIGERE BESTILLINGER</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="saldo">SALDO: <% out.print(user.getBalance()); %></a>
-                </li>
-
-                <% if (user != null) { %>
-                <li class="nav-item">
-                <form method="POST" action="./LogoutServlet">
-                    <button type="submit" class="btn btn-danger">Logout</button>
-                </form>
-                </li>
-                <% }%>
-            </ul>
-        </nav>
+        <div class="cc_navbar">
+            <%  session = request.getSession();
+                User loggedUser = (User)session.getAttribute("user"); %>
+            <div class="cc_nav-wrapper">
+            <div class="cc_navigation-logo">
+                <img src="./images/cupcake_logo.png" width="50">
+                <img src ="./images/cupcake_logo_txt.png" width="250"> 
+            </div>
+            <div class="cc_navigation">
+                <a href="./store.jsp" class="cc_link">Køb Cupcakes</a>
+                <a href="./MyOrdersServlet" class="cc_link">Tidligere Ordre</a>
+                <% if(user != null) { %>
+                <a href="./LogoutServlet" class="cc_link">Log ud</a>
+                <span class="cc_link">Balance: <%= user.getBalance() %> DKK</span>
+                <% } %>
+            </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
