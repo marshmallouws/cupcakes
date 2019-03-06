@@ -5,6 +5,7 @@ import data.DAO;
 import data.Odetails;
 import data.Order;
 import data.Top;
+import data.User;
 import java.util.ArrayList;
 
 public class ShopController {
@@ -39,5 +40,14 @@ public class ShopController {
     
     public boolean createOrder(Order order) {
         return d.placeOrder(order);
+    }
+    
+    public boolean hasBalance(User user, ArrayList<Odetails> currentCart){
+        double price = 0.0;
+        for(Odetails item:currentCart){
+            price += item.getPrice()*item.getQty();
+        }
+        
+        return user.getBalance() > price;
     }
 }

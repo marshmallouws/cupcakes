@@ -19,6 +19,12 @@ public class Order {
         details = new ArrayList<>();
     }
     
+    public Order(int userID, ArrayList<Odetails> details) {
+        //this.username = username
+        this.userID = userID;
+        this.details = details;
+    }
+    
     public Order(int id, int userID, String date) {
         this(userID, date);
         this.id = id;
