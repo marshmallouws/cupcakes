@@ -11,42 +11,16 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="data.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Cupcakes - Store</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="./css/cupcakes.css">
-    </head>
-    <body>
-        <div class="navbar">
-            <%  session = request.getSession();
-                User loggedUser = (User)session.getAttribute("user"); %>
-            <div class="nav-wrapper">
-            <div class="navigation-logo">
-                <img src="./images/cupcake_logo.png" width="50">
-                <img src ="./images/cupcake_logo_txt.png" width="250"> 
-            </div>
-            <div class="navigation">
-                <a href="#" class="link">Køb Cupcakes</a>
-                <a href="#" class="link">Tidligere Ordre</a>
-                <a href="#" class="link">Log ud</a>
-                <% if(loggedUser != null) { %>
-                <span class="link">Balance: <%= loggedUser.getBalance() %> DKK</span>
-                <% } %>
-            </div>
-            </div>
-        </div>
-        <div class="clearfix"></div>
-        <div class="header">Dine gladeste cupcakes</div>
-        <div class="main">
+        <jsp:include page="./header.jsp"></jsp:include>
+        <div class="cc_header">Dine gladeste cupcakes</div>
+        <div class="cc_main">
             <%  ShopController sc = new ShopController();
                 ArrayList<Top> tops = sc.getAllTops();
                 ArrayList<Bottom> bottoms = sc.getAllBottoms(); %>                  
-            <div class="add-to-cart-wrapper">
-            <h2 class="shop-title">Tilføj Cupcakes Til Indkøbskurv</h2>
+            <div class="cc_add-to-cart-wrapper">
+            <h2 class="cc_shop-title">Tilføj Cupcakes Til Indkøbskurv</h2>
             <form action="./addToCart" method="POST">
-            <table class="shop-table">
+            <table class="cc_shop-table">
                 <thead>
                     <tr>
                         <th>Bund</th>
@@ -77,7 +51,7 @@
                             <input name="addQTY" type="number" value="1" min="1" max="100">
                         </td>
                         <td>
-                            <input type="submit" class="btn" value="Læg i Indkøbskurv">
+                            <input type="submit" class="cc_btn" value="Læg i Indkøbskurv">
                         </td>
                     </tr>
                 </tbody>
@@ -89,11 +63,11 @@
                 if(session.getAttribute("cart")!=null){
                     currentCart = (ArrayList<Odetails>)session.getAttribute("cart");}
                 if(session.getAttribute("cart")==null || currentCart.isEmpty()) {%>
-            <h1 class="shop-title">Din indkøbskurv er tom</h1> 
+            <h1 class="cc_shop-title">Din indkøbskurv er tom</h1> 
             <% } else { %>
-            <div class="cart-wrapper">
-            <h1 class="shop-title">Indkøbskurv</h1>
-            <table class="shop-table">
+            <div class="cc_cart-wrapper">
+            <h1 class="cc_shop-title">Indkøbskurv</h1>
+            <table class="cc_shop-table">
                 <thead>
                     <tr>
                         <th></th>
@@ -108,8 +82,8 @@
                        int index = 0;
                         for(Odetails item : currentCart){ %>
                     <tr>
-                        <td class="product-remove">
-                            <a href="./addToCart?remove=<%= index++ %>" class="remove">×</a>
+                        <td class="cc_product-remove">
+                            <a href="./addToCart?remove=<%= index++ %>" class="cc_remove">×</a>
                         </td>
                         <td>
                             <%= sc.getBottom(item.getBottom_id()).getName() + " med " + sc.getTop(item.getTop_id()).getName() %>
@@ -128,21 +102,21 @@
                 </tbody>
             </table>
             </div>
-             <div class="shop-checkout">
+             <div class="cc_shop-checkout">
                  <form action="./checkout" method="POST">
-                 <h3 class="shop-title">Pris i alt</h3>
+                 <h3 class="cc_shop-title">Pris i alt</h3>
                  <h4>Subtotal: <%= totalPrice %> DKK</h4>
                  <h4>Levering: gratis afhentning</h4>
                  <h4>Total: <%= totalPrice %> DKK</h4>
-                 <input type="submit" class="btn checkoutbtn" value="Videre til kassen">
+                 <input type="submit" class="cc_btn cc_checkoutbtn" value="Videre til kassen">
                  </form>
             </div>
             <div class="clearfix"></div>
             <% } %>
         </div>
         
-        <div class="footer">
-            <footer class="footer-content">
+        <div class="cc_footer">
+            <footer class="cc_footer-content">
                 Happy Cupcakes webshop school project   
             </footer>
         </div>

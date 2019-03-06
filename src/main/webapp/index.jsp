@@ -22,7 +22,7 @@
             </div>
             </a>
             <div class="formstyle">
-                <% if(request.getAttribute("errorMsg") != null) {out.println("<div class='errorMsg'>"+request.getAttribute("errorMsg")+"</div>");} %>
+                <% if(request.getAttribute("errorMsg") != null) {out.println("<div class='cc_errorMsg'>"+request.getAttribute("errorMsg")+"</div>");} %>
         <form action="./login" method="POST">
             <input name="username" type="text" placeholder="Brugernavn" required>
             <input name="password" class="inputSplit" type="password" placeholder="Password" required><br>
