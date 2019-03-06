@@ -6,6 +6,8 @@ body,html {
     margin:0;
 }
 
+
+
 .cc_center-wrapper {
     margin:auto;
     width:50%;
@@ -107,6 +109,10 @@ input.inputSplit {
     margin:auto;
     margin-top:20px;
     max-width:60rem;
+}
+
+.cc_nav_margin {
+    margin-top:80px;
 }
 
 .cc_navbar {
