@@ -25,7 +25,7 @@
     <% for (Order order : orders) { %>
 
     <tr>
-        <td><% out.print(order.getID()); %></td>
+        <td><a href="./OdetailServlet?order_id=<%= order.getID() %>"><% out.print(order.getID()); %></a></td>
         <td><% out.print(order.getUsername()); %></td>
         <td><% out.print(order.getDate()); %></td>
     </tr>

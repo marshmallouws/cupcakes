@@ -211,6 +211,30 @@ public class DAO implements DAOInterface {
         }
         return od;
     }
+    
+    public ArrayList<Odetails> getOrderDetailsInfo(int id) {
+        String query = "SELECT * FROM odetails "
+                + "JOIN `order` ON order_id = id "
+                + "JOIN Bottom ON Bottom_id = Bottom.id "
+                + "JOIN Top ON Top_id = Top.id "
+                + "WHERE order_id = '" + id + "';";
+        ArrayList<Odetails> od = new ArrayList<>();
+        try {
+            ResultSet rs = DBConnector.getConnection().prepareStatement(query).executeQuery();
+
+            while (rs.next()) {
+                od.add(new Odetails(rs.getInt("id"),
+                        rs.getString("Top.name"),
+                        rs.getString("Bottom.name"),
+                        rs.getDouble("price"),
+                        rs.getInt("qty")));
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return od;
+    }
 
     @Override
     public ArrayList<Odetails> getOrderDetail(int orderid) {
