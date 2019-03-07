@@ -16,7 +16,7 @@ body,html {
 
 .cc_errorMsg {
     font-size:22px;
-    color:white;
+    color:red;
 }
 
 .login-background {

@@ -55,6 +55,7 @@ public class CheckoutServlet extends HttpServlet {
                 request.setAttribute("errorMsg", "Konto har ikke penge nok til at gennemføre ordre");
                 view = request.getRequestDispatcher("./store.jsp");
                 view.forward(request, response);
+                return;
             }
 
             Order order = new Order(user.getUserID(), currentCart);
