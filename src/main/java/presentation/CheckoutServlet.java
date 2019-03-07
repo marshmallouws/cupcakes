@@ -39,35 +39,40 @@ public class CheckoutServlet extends HttpServlet {
             throws ServletException, IOException {
         ShopController sc = new ShopController();
         RequestDispatcher view;
-        try { 
-        HttpSession session = request.getSession();
-        ArrayList<Odetails> currentCart = new ArrayList();
-        if(session.getAttribute("cart")!=null)
-            currentCart = (ArrayList<Odetails>)session.getAttribute("cart");   
-        
-        User user = (User)session.getAttribute("user");
-        if(currentCart.isEmpty() || user == null)throw new Exception();
-        
-        if(!sc.hasBalance(user,currentCart)){
-             request.setAttribute("errorMsg", "Konto har ikke penge nok til at gennemføre ordre");
-             view = request.getRequestDispatcher("./store.jsp");
-             view.forward(request, response);  
-        }
-        
-        Order order = new Order(user.getUserID(),currentCart);
-        if(!sc.createOrder(order)){
-            throw new Exception();
-        }
-        session.removeAttribute("cart");
-        request.setAttribute("errorMsg", "Din ordre er nu gennemført");
-        view = request.getRequestDispatcher("./store.jsp");
-        view.forward(request, response);  
-        return;
-        }catch(Exception e){
-             request.setAttribute("errorMsg", "Kunne ikke gennemføre ordre");
-             view = request.getRequestDispatcher("./store.jsp");
-             view.forward(request, response);    
-             return;
+        try {
+            HttpSession session = request.getSession();
+            ArrayList<Odetails> currentCart = new ArrayList();
+            if (session.getAttribute("cart") != null) {
+                currentCart = (ArrayList<Odetails>) session.getAttribute("cart");
+            }
+
+            User user = (User) session.getAttribute("user");
+            if (currentCart.isEmpty() || user == null) {
+                throw new Exception();
+            }
+
+            if (!sc.hasBalance(user, currentCart)) {
+                request.setAttribute("errorMsg", "Konto har ikke penge nok til at gennemføre ordre");
+                view = request.getRequestDispatcher("./store.jsp");
+                view.forward(request, response);
+            }
+
+            Order order = new Order(user.getUserID(), currentCart);
+            int orderid = sc.createOrder(order);
+            
+            if (orderid < 0) {
+                throw new Exception();
+            }
+            session.removeAttribute("cart");
+            request.setAttribute("orderid", orderid);
+            request.setAttribute("currCart", currentCart);
+            request.setAttribute("errorMsg", "Din ordre er nu gennemført");
+            view = request.getRequestDispatcher("./orderConfirmation.jsp");
+            view.forward(request, response);
+        } catch (Exception e) {
+            request.setAttribute("errorMsg", "Kunne ikke gennemføre ordre");
+            view = request.getRequestDispatcher("./store.jsp");
+            view.forward(request, response);
         }
         /*
         response.setContentType("text/html;charset=UTF-8");

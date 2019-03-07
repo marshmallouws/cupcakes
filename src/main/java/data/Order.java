@@ -50,4 +50,12 @@ public class Order {
     public int getUserID() {
         return userID;
     }
+    
+    public double getPrice() {
+        double price = 0;
+        for(Odetails o: details) {
+            price += o.getPrice()*o.getQty();
+        }
+        return price;
+    }
 }
