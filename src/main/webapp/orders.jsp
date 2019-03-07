@@ -14,7 +14,7 @@
 %>
 <jsp:include page="./header.jsp"></jsp:include>
     <div class="cc_nav_margin cc_main">
-        <h1> <% out.print(user.getUsername()); %>'s Ordre</h1>
+        <h1> <% out.print(user.getUsername()); %>'s ordrer</h1>
 
     <div class="card">
         <div class="card-body">
@@ -37,7 +37,7 @@
 
             <tr>
                 <td><% out.print(order.getID()); %></td>
-                <td><% out.print(order.getUserID()); %></td>
+                <td><% out.print(order.getUsername()); %></td>
                 <td><% out.print(order.getDate()); %></td>
             </tr>
 

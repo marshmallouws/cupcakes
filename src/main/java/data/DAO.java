@@ -153,12 +153,12 @@ public class DAO implements DAOInterface {
     // Get All Orders
     public List<Order> getOrders() {
         List<Order> orders = new ArrayList();
-        String sql = "SELECT * FROM `order`";
+        String sql = "SELECT `order`.`id`, `order`.`User_id`, `User`.`username`, `order`.`date` FROM cupcakes.`order` JOIN `User` ON `order`.`User_id` = `User`.`id` ORDER BY `order`.`id`;";
 
         try {
             ResultSet rs = DBConnector.getConnection().prepareStatement(sql).executeQuery();
             while (rs.next()) {
-                orders.add(new Order(rs.getInt("id"), rs.getInt("User_id"), rs.getString("date")));
+                orders.add(new Order(rs.getInt("id"), rs.getInt("User_id"), rs.getString("username"), rs.getString("date")));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -169,7 +169,7 @@ public class DAO implements DAOInterface {
 
     @Override
     public ArrayList<Order> getOrders(int id) {
-        String query = "SELECT * FROM `order` WHERE User_id = '" + id + "';";
+        String query = "SELECT `order`.`id`, `order`.`User_id`, `User`.`username`, `order`.`date` FROM cupcakes.`order` JOIN `User` ON `order`.`User_id` = `User`.`id` WHERE `order`.`User_id` = " + id + " ORDER BY `order`.`id`;";
         ArrayList<Order> ord = new ArrayList<>();
 
         try {
@@ -177,11 +177,12 @@ public class DAO implements DAOInterface {
             while (rs.next()) {
                 ord.add(new Order(rs.getInt("id"),
                         rs.getInt("User_id"),
+                        rs.getString("username"),
                         rs.getString("date"))
                 );
             }
         } catch (SQLException ex) {
-            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
         return ord;
     }

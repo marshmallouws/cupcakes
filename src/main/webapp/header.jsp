@@ -27,10 +27,15 @@
             </div>
             <div class="cc_navigation">
                 <a href="./store.jsp" class="cc_link">Køb Cupcakes</a>
-                <a href="./MyOrdersServlet" class="cc_link">Tidligere Ordre</a>
+                <a href="./MyOrdersServlet" class="cc_link">Mine Ordrer</a>
+                
+                <% if(Role.ADMIN.equals(user.getRole())){ %>
+                <a href="./OrdersServlet" class="cc_link">Alle Ordrer</a>
+                <a href="./UsersServlet" class="cc_link">Users</a>
+                <% } %>
                 
                 <% if(user != null) { %>
-                <a href="./LogoutServlet" class="cc_link">Log ud</a>
+                <a href="./LogoutServlet" class="cc_link" style="background-color:red;">Log ud</a>
                 <span class="cc_link">Balance: <%= user.getBalance() %> DKK</span>
                 <% } %>
             </div>

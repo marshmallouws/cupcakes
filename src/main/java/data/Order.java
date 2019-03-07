@@ -9,9 +9,19 @@ import java.util.ArrayList;
 public class Order {
     private int id;
     private int userID;
+    private String username;
     private String date;
     private ArrayList<Odetails> details;
 
+    
+    // Full - no odetails
+    public Order(int id, int userID, String username, String date) {
+        this.id = id;
+        this.userID = userID;
+        this.username = username;
+        this.date = date;
+    }
+    
     public Order(int userID, String date) {
         //this.username = username
         this.userID = userID;
@@ -35,9 +45,11 @@ public class Order {
         return id;
     }
 
-//    public String getUsername() {
-//        return user.getUsername();
-//    }
+    public String getUsername() {
+        return username;
+    }
+    
+    
 
     public String getDate() {
         return date;
