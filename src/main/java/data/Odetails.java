@@ -63,5 +63,9 @@ public class Odetails {
         return bottom_name;
     }
     
+    public void addToQty(int qty) {
+        this.qty += qty;
+    }
+    
     
 }

@@ -37,31 +37,43 @@ public class addToCartServlet extends HttpServlet {
             throws ServletException, IOException {
         ShopController sc = new ShopController();
         RequestDispatcher view;
-        try { 
-        HttpSession session = request.getSession();
-        ArrayList<Odetails> currentCart = new ArrayList();
-        if(session.getAttribute("cart")!=null)
-            currentCart = (ArrayList<Odetails>)session.getAttribute("cart");    
+        try {
+            HttpSession session = request.getSession();
+            ArrayList<Odetails> currentCart = new ArrayList();
+            if (session.getAttribute("cart") != null) {
+                currentCart = (ArrayList<Odetails>) session.getAttribute("cart");
+            }
+
+            if (request.getParameter("remove") != null) {
+                int remove = Integer.parseInt(request.getParameter("remove"));
+                session.setAttribute("cart", sc.removeFromCart(currentCart, remove));
+                response.sendRedirect("./store.jsp");
+                return;
+            }
+
+            int bottom_id = Integer.parseInt(request.getParameter("addBottom"));
+            int top_id = Integer.parseInt(request.getParameter("addTop"));
+            int qty = Integer.parseInt(request.getParameter("addQTY"));
+            if (qty < 1 || bottom_id < 1 || top_id < 1) {
+                throw new Exception();
+            }
             
-        if(request.getParameter("remove") != null){
-            int remove = Integer.parseInt(request.getParameter("remove"));
-            session.setAttribute("cart", sc.removeFromCart(currentCart, remove));
+            for(Odetails o: currentCart) {
+                if(o.getBottom_id() == bottom_id && o.getTop_id() == top_id) {
+                    o.addToQty(qty);
+                    response.sendRedirect("./store.jsp");
+                    return;
+                }
+            }
+            
+            session.setAttribute("cart", sc.addToCart(currentCart, bottom_id, top_id, qty));
             response.sendRedirect("./store.jsp");
             return;
-        }    
-            
-        int bottom_id = Integer.parseInt(request.getParameter("addBottom"));
-        int top_id = Integer.parseInt(request.getParameter("addTop"));
-        int qty = Integer.parseInt(request.getParameter("addQTY"));
-        if(qty<1 || bottom_id<1 || top_id < 1) throw new Exception();        
-        session.setAttribute("cart", sc.addToCart(currentCart, bottom_id, top_id, qty));
-        response.sendRedirect("./store.jsp");
-        return;
-        }catch(Exception e){
-             request.setAttribute("errorMsg", "Kunne ikke tilføje til kurv");
-             view = request.getRequestDispatcher("./store.jsp");
-             view.forward(request, response);    
-             return;
+        } catch (Exception e) {
+            request.setAttribute("errorMsg", "Kunne ikke tilføje til kurv");
+            view = request.getRequestDispatcher("./store.jsp");
+            view.forward(request, response);
+            return;
         }
         /*
         response.setContentType("text/html;charset=UTF-8");
