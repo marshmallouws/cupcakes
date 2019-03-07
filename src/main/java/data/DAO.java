@@ -325,10 +325,10 @@ public class DAO implements DAOInterface {
     }
 
     @Override
-    public boolean placeOrder(Order order) {
+    public int placeOrder(Order order) {
         String queryDet = "INSERT INTO odetails (order_id, Top_id, Bottom_id, price, qty) "
                 + "VALUES (?, ?, ?, ?, ?);";
-        int id = insertOrder(order);
+        int orderid = insertOrder(order);
         //TODO: Make query to change user's balance.
         double price = 0;
 
@@ -341,7 +341,7 @@ public class DAO implements DAOInterface {
 
             for (Odetails o : details) {
 
-                pso.setInt(1, id); //orderid
+                pso.setInt(1, orderid); //orderid
                 pso.setInt(2, o.getTop_id()); //top
                 pso.setInt(3, o.getBottom_id()); //bottom
                 pso.setDouble(4, o.getPrice()); //price
@@ -356,7 +356,7 @@ public class DAO implements DAOInterface {
             price = 0;
             try {
                 conn.rollback();
-                String query = "DELETE FROM `order` WHERE id = " + id + ";";
+                String query = "DELETE FROM `order` WHERE id = " + orderid + ";";
                 Statement stmt = conn.createStatement();
                 stmt.executeUpdate(query);
             } catch (SQLException ex1) {
@@ -371,11 +371,12 @@ public class DAO implements DAOInterface {
         }
         
         if(price == 0) {
-            return false;
+            return -1;
         }
         
         deductBalance(price, order.getUserID());
-        return true;
+        System.out.println(orderid);
+        return orderid;
     }
     
     private boolean deductBalance(double amount, int userid) {
@@ -430,5 +431,21 @@ public class DAO implements DAOInterface {
     public Odetails createOdetailsForCart(int bottom, int top, int qty) {
         double price = (getTop(top).getPrice() + getBottom(bottom).getPrice());
         return new Odetails(top, bottom, price, qty);
+    }
+    
+    public Order getOrder(int id) {
+        String query = "SELECT * FROM `order` WHERE id = " + id + ";";
+        Order o = null;
+        try {
+            ResultSet rs = DBConnector.getConnection().prepareStatement(query).executeQuery();
+            while (rs.next()) {
+                o = new Order(rs.getInt("id"),
+                        rs.getInt("User_id"),
+                        rs.getString("date"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return o;
     }
 }

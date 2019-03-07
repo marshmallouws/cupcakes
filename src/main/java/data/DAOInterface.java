@@ -26,5 +26,5 @@ public interface DAOInterface {
     public String getTopIdName(int id);
     public ArrayList<Bottom> getAllBottoms();
     public ArrayList<Top> getAllTops();
-    public boolean placeOrder(Order order);
+    public int placeOrder(Order order);
 }

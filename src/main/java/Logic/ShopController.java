@@ -38,7 +38,7 @@ public class ShopController {
         return currentCart;
     }
     
-    public boolean createOrder(Order order) {
+    public int createOrder(Order order) {
         return d.placeOrder(order);
     }
     
@@ -49,5 +49,9 @@ public class ShopController {
         }
         
         return user.getBalance() > price;
+    }
+    
+    public Order getOrder(int id){
+        return d.getOrder(id);
     }
 }
