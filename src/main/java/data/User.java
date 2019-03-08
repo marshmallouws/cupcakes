@@ -70,4 +70,8 @@ public class User {
         orders.add(order);
     }
     
+    public void setBalance(double price) {
+        balance -= price;
+    }
+    
 }

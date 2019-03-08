@@ -6,6 +6,7 @@
 package presentation;
 
 import Logic.ShopController;
+import Logic.UserController;
 import data.Odetails;
 import data.Order;
 import data.User;
@@ -38,6 +39,7 @@ public class CheckoutServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ShopController sc = new ShopController();
+        UserController uc = new UserController();
         RequestDispatcher view;
         try {
             HttpSession session = request.getSession();
@@ -64,6 +66,13 @@ public class CheckoutServlet extends HttpServlet {
             if (orderid <= 0) {
                 throw new Exception();
             }
+            
+            User u = uc.getUser(user.getUsername());
+            
+            if(u.getUserID() == user.getUserID()) {
+                session.setAttribute("user", u);
+            }
+            
             session.removeAttribute("cart");
             request.setAttribute("orderid", orderid);
             request.setAttribute("currCart", currentCart);
