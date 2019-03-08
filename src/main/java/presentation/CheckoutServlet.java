@@ -61,7 +61,7 @@ public class CheckoutServlet extends HttpServlet {
             Order order = new Order(user.getUserID(), currentCart);
             int orderid = sc.createOrder(order);
             
-            if (orderid < 0) {
+            if (orderid <= 0) {
                 throw new Exception();
             }
             session.removeAttribute("cart");

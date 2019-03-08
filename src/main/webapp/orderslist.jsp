@@ -134,5 +134,10 @@
 }
 </script>
 
+<div class="cc_footer">
+    <footer class="cc_footer-content">
+        Happy Cupcakes webshop school project   
+    </footer>
+</div>
 </body>
 </html>

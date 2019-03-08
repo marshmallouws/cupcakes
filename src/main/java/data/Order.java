@@ -6,7 +6,7 @@ import java.util.ArrayList;
  *
  * @author vl48
  */
-public class Order {
+public class Order implements Comparable<Order> {
     private int id;
     private int userID;
     private String username;
@@ -69,5 +69,11 @@ public class Order {
             price += o.getPrice()*o.getQty();
         }
         return price;
+    }
+
+    @Override
+    public int compareTo(Order o) {
+        int compareId = o.getID();
+        return this.id - compareId;
     }
 }

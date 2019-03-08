@@ -40,6 +40,7 @@ public class OdetailServlet extends HttpServlet {
         int order_id = Integer.parseInt(request.getParameter("order_id"));
         
         List<Odetails> odetails = data.getOrderDetailsInfo(order_id);
+        request.setAttribute("id", order_id);
         
         request.setAttribute("odetails", odetails);
         request.getRequestDispatcher("./orderdetails.jsp").forward(request, response);

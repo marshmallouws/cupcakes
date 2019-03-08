@@ -4,6 +4,7 @@
     Author     : caspe
 --%>
 
+<%@page import="java.util.Collections"%>
 <%@page import="data.User"%>
 <%@page import="java.util.List"%>
 <%@page import="data.Order"%>
@@ -11,6 +12,7 @@
 <%
     User user = (User) request.getSession().getAttribute("user");
     List<Order> orders = ((List<Order>) request.getSession().getAttribute("orders"));
+    Collections.sort(orders, Collections.reverseOrder());
 %>
 <jsp:include page="./header.jsp"></jsp:include>
     <div class="cc_nav_margin cc_main">
@@ -32,11 +34,12 @@
         <th>Date</th>
         </thead>
         <tbody>
-
+            
+            
             <% for (Order order : orders) { %>
 
             <tr>
-                <td><% out.print(order.getID()); %></td>
+                <td><a href="./OdetailServlet?order_id=<%= order.getID() %>"><% out.print(order.getID()); %></a></td>
                 <td><% out.print(order.getUsername()); %></td>
                 <td><% out.print(order.getDate()); %></td>
             </tr>
@@ -45,6 +48,12 @@
         </tbody>
     </table>
 
+</div>
+
+<div class="cc_footer">
+    <footer class="cc_footer-content">
+        Happy Cupcakes webshop school project   
+    </footer>
 </div>
 </body>
 </html>

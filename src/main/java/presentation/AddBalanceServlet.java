@@ -34,6 +34,7 @@ public class AddBalanceServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
         UserController u = new UserController();
         
         String username = request.getParameter("username");

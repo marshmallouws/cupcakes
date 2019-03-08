@@ -19,26 +19,41 @@
     <body>
         <div class="cc_navbar">
             <%  session = request.getSession();
-                User loggedUser = (User)session.getAttribute("user"); %>
+                User loggedUser = (User) session.getAttribute("user"); %>
             <div class="cc_nav-wrapper">
-            <div class="cc_navigation-logo">
-                <img src="./images/cupcake_logo.png" width="50">
-                <img src ="./images/cupcake_logo_txt.png" width="250"> 
-            </div>
-            <div class="cc_navigation">
-                <a href="./store.jsp" class="cc_link">Køb Cupcakes</a>
-                <a href="./MyOrdersServlet" class="cc_link">Mine Ordrer</a>
-                
-                <% if(Role.ADMIN.equals(user.getRole())){ %>
-                <a href="./OrdersServlet" class="cc_link">Alle Ordrer</a>
-                <a href="./UsersServlet" class="cc_link">Users</a>
-                <% } %>
-                
-                <% if(user != null) { %>
-                <a href="./LogoutServlet" class="cc_link" style="background-color:red;">Log ud</a>
-                <span class="cc_link">Balance: <%= user.getBalance() %> DKK</span>
-                <% } %>
-            </div>
+                <div class="cc_navigation-logo">
+                    <img src="./images/cupcake_logo.png" width="50">
+                    <img src ="./images/cupcake_logo_txt.png" width="250"> 
+                </div>
+                <div class="cc_navigation">
+                    <% if (Role.CUSTOMER.equals(user.getRole())) { %>
+                    <a href="./store.jsp" class="cc_link">Køb Cupcakes</a>
+                    <a href="./MyOrdersServlet" class="cc_link">Mine Ordrer</a>
+                    <% } %>
+
+                    <% if (Role.ADMIN.equals(user.getRole())) { %>
+                    <a href="./OrdersServlet" class="cc_link">Alle Ordrer</a>
+                    <a href="./UsersServlet" class="cc_link">Brugere</a>
+                    <a href="./AdminAddBalance.jsp" class="cc_link">Opdatér brugers saldo</a>
+                    <% } %>
+                    <span class="cc_link">Balance: <%= user.getBalance()%> DKK</span>
+
+                    <% if (user != null) {%>
+                    <a href="./LogoutServlet" class="cc_link" id="unicorn" style=
+                       "
+                       padding: 10px;
+                       border: none;
+                       color: #FFF;
+                       font-weight: bold;
+                       min-width: 70%;
+                       background-color: #a11fbf;
+                       border-radius: 10px;
+                       cursor:pointer;
+                       ">
+                        Log ud</a>
+                    
+                    <% }%>
+                </div>
             </div>
         </div>
         <div class="clearfix"></div>
