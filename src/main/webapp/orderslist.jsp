@@ -4,9 +4,12 @@
     Author     : caspe
 --%>
 
+<%@page import="java.util.Collections"%>
 <%@page import="java.util.List"%>
 <%@page import="data.Order"%>
-<% List<Order> orders = (List<Order>) request.getAttribute("orders"); %>
+<% List<Order> orders = (List<Order>) request.getAttribute("orders");
+    Collections.sort(orders, Collections.reverseOrder());
+%>
 
 <jsp:include page="./header.jsp"></jsp:include>
 

@@ -122,6 +122,7 @@ input.inputSplit {
   background-color: #FFF;
   position: fixed;
   top: 0;
+  z-index: 5;
   width: 100%;
      height:80px;
   -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
@@ -156,6 +157,7 @@ input.inputSplit {
   text-decoration: none;
   font-size: 16px;
   cursor:pointer;
+  z-index: 5;
 }
 
 .cc_navbar a.cc_link:hover {
@@ -299,4 +301,8 @@ input.cc_checkoutbtn {
 
 #unicorn.cc_link:hover {
     background-color: #b572c0 !important;
+}
+
+.card_body {
+    z-index: 3;
 }

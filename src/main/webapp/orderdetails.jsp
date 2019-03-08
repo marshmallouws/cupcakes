@@ -19,7 +19,7 @@
 
 <jsp:include page="header.jsp"></jsp:include>
 
-<div class="cc_nav_margin cc_main">
+            <div class="cc_nav_margin cc_main">
     
 
 
@@ -34,6 +34,7 @@
         <th>Bund</th>
         <th>Top</th>
         <th>Antal</th>
+        <th>Pris</th>
         </thead>
         <tbody>
 
@@ -50,7 +51,7 @@
     </table>    
 </div>
 
-    <div class="cc_footer">
+<div class="cc_footer">
     <footer class="cc_footer-content">
         Happy Cupcakes webshop school project   
     </footer>

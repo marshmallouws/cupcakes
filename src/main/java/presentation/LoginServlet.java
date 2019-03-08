@@ -6,6 +6,7 @@
 package presentation;
 
 import Logic.UserController;
+import data.Role;
 import data.User;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
@@ -51,7 +52,14 @@ public class LoginServlet extends HttpServlet {
             User user = uc.getUser(username);
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
-            response.sendRedirect("store.jsp");  
+            
+            if(user.getRole() == Role.ADMIN) {
+                response.sendRedirect("./OrdersServlet");
+            } else {
+                response.sendRedirect("store.jsp");
+            }
+            
+              
             return;
         }
         }catch(Exception e){
