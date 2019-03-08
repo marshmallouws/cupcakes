@@ -15,7 +15,7 @@
     Collections.sort(orders, Collections.reverseOrder());
 %>
 <jsp:include page="./header.jsp"></jsp:include>
-    <div class="cc_nav_margin cc_main">
+<div class="cc_nav_margin cc_main"><br>
         <h1> <% out.print(user.getUsername()); %>'s ordrer</h1>
 
     <div class="card"><br>

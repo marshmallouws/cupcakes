@@ -19,14 +19,15 @@
 
 <jsp:include page="header.jsp"></jsp:include>
 
-            <div class="cc_nav_margin cc_main">
+<div class="cc_nav_margin cc_main"><br>
     
 
 
     <div class="card">
         <div class="card-body">
-            <p class="card-text"><% out.println("<h4> Ordre #" + id + " </h1>"); %></p>
-            <p class="card-text"><% out.println("<h4> Samlet pris #" + total + " </h1>"); %></p>
+            <p class="card-text"><% out.println("<h4> Ordre nr." + id + " </h1>"); %></p>
+            <p class="card-text"><% out.println("<h4> Samlet pris: " + total + " </h1>"); %></p>
+            <p class="card-text"><% out.println("<h4> Leveringstidspunkt:" + o.getDate().split(".") + "</h4>"); %></p>
     </div>
     
         <table class="table">
@@ -49,6 +50,7 @@
             <% }%>
         </tbody>
     </table>    
+</div>
 </div>
 
 <div class="cc_footer">
