@@ -18,7 +18,7 @@
     <div class="cc_nav_margin cc_main">
         <h1> <% out.print(user.getUsername()); %>'s ordrer</h1>
 
-    <div class="card">
+    <div class="card"><br>
         <div class="card-body">
             <p class="card-text">Brugernavn: <% out.print(user.getUsername()); %></p>
             <p class="card-text">Email: <% out.print(user.getEmail()); %></p>

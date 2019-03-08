@@ -10,7 +10,7 @@
 
 <jsp:include page="header.jsp"></jsp:include>
 
-<div class="cc_nav_margin cc_main">
+<div class="cc_nav_margin cc_main"><br>
 <table class="table" id="myTable">
         <thead>
         <th>user-id</th>

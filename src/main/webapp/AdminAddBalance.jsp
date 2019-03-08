@@ -10,7 +10,7 @@
 
 <% String username = request.getParameter("username"); %>
         <jsp:include page="./header.jsp"></jsp:include>
-        <div class="cc_nav_margin cc_main">
+        <div class="cc_nav_margin cc_main"><br>
             <h1>Tilføj til en brugers saldo</h1>
             <form action="./AddBalanceServlet" method="POST">
                 <input name="username" type="text" required>

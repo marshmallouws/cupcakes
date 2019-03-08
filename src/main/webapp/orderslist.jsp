@@ -13,10 +13,10 @@
 
 <jsp:include page="./header.jsp"></jsp:include>
 
-    <div class="cc_nav_margin cc_main">
+<div class="cc_nav_margin cc_main"><br>
     <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Søg efter brugernavn">
-    <button onclick="sortTableUsername()">Sort by username</button>
-    <button onclick="sortTableDate()">Sort by date</button>
+    <button onclick="sortTableUsername()">Sortér efter brugernavn</button>
+    <button onclick="sortTableDate()">Sortér efter dato</button>
     <table class="table" id="myTable">
         <thead>
         <th>id</th>
