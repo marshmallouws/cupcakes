@@ -25,9 +25,9 @@
 
     <div class="card">
         <div class="card-body">
-            <p class="card-text"><% out.println("<h4> Ordre nr." + id + " </h1>"); %></p>
+            <p class="card-text"><% out.println("<h4> Ordre nr. " + id + " </h1>"); %></p>
             <p class="card-text"><% out.println("<h4> Samlet pris: " + total + " </h1>"); %></p>
-            <p class="card-text"><% out.println("<h4> Leveringstidspunkt:" + o.getDate().split(".") + "</h4>"); %></p>
+            <p class="card-text"><% out.println("<h4> Leveringstidspunkt: " + o.getDate() + "</h4>"); %></p>
     </div>
     
         <table class="table">
