@@ -13,12 +13,11 @@
 <div class="cc_nav_margin cc_main"><br>
 <table class="table" id="myTable">
         <thead>
-        <th>user-id</th>
-        <th>Username</th>
-        <th>Password</th>
+        <th>id</th>
+        <th>Brugernavn</th>
         <th>Email</th>
         <th>Balance</th>
-        <th>Role</th>
+        <th>Adgang</th>
     </thead>
     <tbody>
 
@@ -27,9 +26,8 @@
     <tr>
         <td><%= u.getUserID() %></td>
         <td><a href="./AdminAddBalance.jsp?username=<%= u.getUsername() %>"> <%= u.getUsername() %></a></td>
-        <td><%= u.getPassword() %></td>
         <td><%= u.getEmail() %></td>
-        <td><%= u.getBalance() %></td>
+        <td><%= u.getBalance() %> kr.</td>
         <td><%= u.getRole() %></td>
     </tr>
 

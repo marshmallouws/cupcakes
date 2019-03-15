@@ -15,7 +15,12 @@ import java.util.logging.Logger;
  * @author Bitten
  */
 public class DAO implements DAOInterface {
-
+    
+    /** JAVADOC
+     * 
+     * @param username used to search for user. 
+     * @return a user object created from database data
+     */
     @Override
     public User getUser(String username) {
         User u = null;
@@ -35,6 +40,12 @@ public class DAO implements DAOInterface {
         }
         return u;
     }
+    
+    /** JAVADOC
+     * 
+     * @param id used to search for user
+     * @return returns user object created from database data
+     */
 
     @Override
     public User getUser(int id) {
@@ -55,6 +66,11 @@ public class DAO implements DAOInterface {
         }
         return u;
     }
+    
+    /** JAVADOC
+     * 
+     * @return an arrayList of all users that are stored in the database.
+     */
 
     @Override
     public ArrayList<User> getUsers() {
@@ -80,6 +96,14 @@ public class DAO implements DAOInterface {
 
         return users;
     }
+    
+    /** JAVADOC
+     * 
+     * @param username has to be unique
+     * @param password
+     * @param email has to be unique
+     * @return boolean as indicator if it well to create a new user.
+     */
 
     @Override
     public boolean insertUser(String username, String password, String email) {
@@ -99,6 +123,13 @@ public class DAO implements DAOInterface {
         }
         return succes;
     }
+    
+    /** JAVADOC
+     * 
+     * @param username of existing user in database
+     * @param amount double value
+     * @return true if it went well otherwise false
+     */
 
     @Override
     public boolean addBalance(String username, double amount) {
@@ -117,6 +148,12 @@ public class DAO implements DAOInterface {
         }
         return succes;
     }
+    
+    /** JAVADOC
+     * 
+     * @param id on cupcake-top
+     * @return the name of the top
+     */
 
     @Override
     public String getTopIdName(int id) {
@@ -133,6 +170,12 @@ public class DAO implements DAOInterface {
 
         return res;
     }
+    
+    /**
+     * 
+     * @param id on the cupcake-bottom
+     * @return the name of the given bottom
+     */
 
     @Override
     public String getBottomIdName(int id) {
@@ -150,7 +193,11 @@ public class DAO implements DAOInterface {
         return res;
     }
 
-    // Get All Orders
+    /** JAVADOC
+     * 
+     * @return a list of all orders that are stored in the database. 
+     */
+    
     public List<Order> getOrders() {
         List<Order> orders = new ArrayList();
         String sql = "SELECT `order`.`id`, `order`.`User_id`, `User`.`username`, `order`.`date` FROM cupcakes.`order` JOIN `User` ON `order`.`User_id` = `User`.`id` ORDER BY `order`.`id`;";
@@ -166,7 +213,13 @@ public class DAO implements DAOInterface {
 
         return orders;
     }
+    
 
+    /** JAVADOC 
+     * 
+     * @param id user id
+     * @return ArrayList of all orders for a specific user.
+     */
     @Override
     public ArrayList<Order> getOrders(int id) {
         String query = "SELECT `order`.`id`, `order`.`User_id`, `User`.`username`, `order`.`date` FROM cupcakes.`order` JOIN `User` ON `order`.`User_id` = `User`.`id` WHERE `order`.`User_id` = " + id + " ORDER BY `order`.`id`;";
@@ -187,6 +240,11 @@ public class DAO implements DAOInterface {
         return ord;
     }
 
+    /**
+     * 
+     * @param id user id
+     * @return order details for all of a specific user's orders.
+     */
     @Override
     public ArrayList<Odetails> getOrderDetails(int id) {
         String query = "SELECT * FROM odetails "
@@ -212,6 +270,11 @@ public class DAO implements DAOInterface {
         return od;
     }
     
+    /**
+     * 
+     * @param id order id
+     * @return all order details for a specific order.
+     */
     public ArrayList<Odetails> getOrderDetailsInfo(int id) {
         String query = "SELECT * FROM odetails "
                 + "JOIN `order` ON order_id = id "
@@ -236,6 +299,11 @@ public class DAO implements DAOInterface {
         return od;
     }
 
+    /** JAVADOC
+     * 
+     * @param orderid id for a specific order
+     * @return all details for a specific order
+     */
     @Override
     public ArrayList<Odetails> getOrderDetail(int orderid) {
         String query = "SELECT * FROM odetails "
@@ -259,7 +327,12 @@ public class DAO implements DAOInterface {
         }
         return od;
     }
-
+    
+    /** JAVADOC
+     * 
+     * @return ArrayList of all bottoms that are stored in the database. 
+     */
+    
     @Override
     public ArrayList<Bottom> getAllBottoms() {
 
@@ -281,7 +354,11 @@ public class DAO implements DAOInterface {
         return result;
 
     }
-
+    
+    /** JAVADOC
+     * 
+     * @return ArrayList of all tops that are stored in the database.
+     */
     @Override
     public ArrayList<Top> getAllTops() {
 
@@ -302,7 +379,13 @@ public class DAO implements DAOInterface {
 
         return result;
     }
-
+    
+    /** JAVADOC
+     * Is used by placeOrder
+     * 
+     * @param order the order that should be inserted into database
+     * @return the id of the newly created order or 0 if something went wrong
+     */
     private int insertOrder(Order order) {
         String query = "INSERT INTO `order` (date, User_id) VALUES (now(), ?);";
         int id = 0;
@@ -323,7 +406,12 @@ public class DAO implements DAOInterface {
         }
         return id;
     }
-
+    
+    /**
+     * 
+     * @param order the order that needs to be inserted
+     * @return order id for the newly created order.
+     */
     @Override
     public int placeOrder(Order order) {
         String queryDet = "INSERT INTO odetails (order_id, Top_id, Bottom_id, price, qty) "
@@ -379,6 +467,15 @@ public class DAO implements DAOInterface {
         return orderid;
     }
     
+    /** JAVADOC
+     * 
+     * Is called by placeorder
+     * 
+     * @param amount the price of the order
+     * @param userid the id of user that placed the order
+     * @return true if it went well or else false.
+     */
+    
     private boolean deductBalance(double amount, int userid) {
         String sql = "UPDATE User SET balance = (balance - " + amount + ") WHERE id = '" + userid + "'";
         boolean succes = false;
@@ -396,6 +493,11 @@ public class DAO implements DAOInterface {
         return succes;
     }
 
+    /** JAVADOC
+     * 
+     * @param id of the bottom
+     * @return an object of the bottom from the database
+     */
     public Bottom getBottom(int id) {
         ResultSet rs;
         Bottom bottom = null;
@@ -411,6 +513,12 @@ public class DAO implements DAOInterface {
 
         return bottom;
     }
+    
+     /** JAVADOC
+     * 
+     * @param id of the top
+     * @return an object of the top from the database
+     */
 
     public Top getTop(int id) {
         ResultSet rs;
@@ -427,11 +535,26 @@ public class DAO implements DAOInterface {
 
         return top;
     }
-
+    
+    /** JAVADOC
+     * 
+     * Creating an odetails by retrieving data about top, bottom and price
+     * 
+     * @param bottom
+     * @param top
+     * @param qty
+     * @return 
+     */
     public Odetails createOdetailsForCart(int bottom, int top, int qty) {
         double price = (getTop(top).getPrice() + getBottom(bottom).getPrice());
         return new Odetails(top, bottom, price, qty);
     }
+    
+    /**JAVADOC
+     * 
+     * @param id order id
+     * @return a specific order
+     */
     
     public Order getOrder(int id) {
         String query = "SELECT * FROM `order` WHERE id = " + id + ";";
