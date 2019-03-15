@@ -20,8 +20,8 @@
     <table class="table" id="myTable">
         <thead>
         <th>id</th>
-        <th>Username</th>
-        <th>Date</th>
+        <th>Brugernavn</th>
+        <th>Dato</th>
     </thead>
     <tbody>
 

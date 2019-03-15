@@ -21,10 +21,12 @@
             <%  session = request.getSession();
                 User loggedUser = (User) session.getAttribute("user"); %>
             <div class="cc_nav-wrapper">
+                <a href="./store.jsp">
                 <div class="cc_navigation-logo">
                     <img src="./images/cupcake_logo.png" width="50">
                     <img src ="./images/cupcake_logo_txt.png" width="250"> 
                 </div>
+                </a>
                 <div class="cc_navigation">
                     <% if (Role.CUSTOMER.equals(user.getRole())) { %>
                     <a href="./store.jsp" class="cc_link">Køb Cupcakes</a>
